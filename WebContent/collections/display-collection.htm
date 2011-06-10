@@ -1,0 +1,30 @@
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <img src="$collection.getCollectionMetadata().getIconUrl()"
+                    alt="$messages.img-preview-alt" />
+            </td>
+            <td style="padding-left: 30px;">
+                <h3>
+                    $collection.getCollectionMetadata().getName()
+                </h3>
+                <ul class="selection">
+                    <li style="padding-bottom: 10px;">
+                        <a href="search.htm?form_name=searchForm&query=&pageSize=20&action=Search">$messages.link-view-all</a>&nbsp;
+                    </li>
+                    <li style="padding-bottom: 10px;">
+                        <a href="browse.htm">$messages.link-browse</a>
+                    </li>
+                    <li style="padding-bottom: 10px;">
+                        <a href="sources.htm">$messages.link-sources</a>
+                    </li>
+                </ul>
+                #if ($createNewRecordForm.isDisabled())
+                #else
+                  $createNewRecordForm
+                #end
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,18 @@
+<div id="$helpPanelId" class="$initialClass">
+  <h4>$format.message($messages.help-usage-notes-header, $configuration.getDisplayLabel())</h4>
+  <p>
+    $configuration.getUsageNotes()
+  </p>
+  #if ($configuration.isRepeatable())
+  <h4>$messages.help-repeatable-header</h4>
+    <p> 
+      $messages.help-repeatable
+    </p>
+  #end
+  #if ($configuration.getVocabularySources().size() > 0)
+    <h4>$messages.help-vocabulary-sources-header</h4>
+    <p>
+      $messages.help-vocabulary-sources
+    </p>
+  #end
+</div>

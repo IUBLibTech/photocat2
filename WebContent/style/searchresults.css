@@ -1,0 +1,47 @@
+.searchResultCell {
+    width: 250px;
+    height: 250px;float:left;
+    overflow:hidden;
+    margin:.5em;
+    padding-bottom: 20px;
+    vertical-align: top;
+}
+
+.searchThumbTitle {
+    position:relative;
+    top:0px;
+    height:200px;
+    width:100%;
+    vertical-align: bottom;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+.searchThumbTitleText {
+    position:relative;
+    top:0px;
+    background:url('images/60_percent_white.png');
+    z-index:1;
+}
+
+.searchThumb {
+  position:relative;
+  top:-175px;
+  height:250px;
+  
+}
+
+.searchThumbInfo {
+  position:relative;
+  top:-250px;
+  left:0px;
+  height:50px;
+  width:100%;
+  text-align:bottom;
+  z-index:1;
+  margin-bottom: 25px;
+}
+
+.searchThumbInfo div {
+  background:url('images/60_percent_white.png');
+}

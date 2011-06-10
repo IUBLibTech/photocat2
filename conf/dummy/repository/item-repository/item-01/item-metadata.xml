@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?><m:itemMetadata xmlns:m="info:photocat/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:photocat/metadata http://purl.dlib.indiana.edu/iudl/xml/schema/photocat/field-metadata.xsd">
+<m:id>item-01</m:id>
+<m:collectionId>demo</m:collectionId>
+<m:field fieldType="INTERNAL_NOTES">
+<m:values>
+<m:value>
+<m:part property="internal notes">The data for this object is on disk in the conf/dummy/repository/item-01 directory.</m:part>
+</m:value>
+</m:values>
+</m:field>
+<m:field fieldType="MODIFYING_USER">
+<m:values>
+<m:value>
+<m:part property="username">jdoe</m:part>
+</m:value>
+</m:values>
+</m:field>
+<m:field fieldType="TITLE">
+<m:values>
+<m:value>
+<m:part property="title">This is a demonstration object</m:part>
+</m:value>
+</m:values>
+</m:field>
+</m:itemMetadata>

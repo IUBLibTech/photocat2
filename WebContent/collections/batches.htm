@@ -1,0 +1,31 @@
+<h2>$messages.batch-header</h2>
+<p class="explanation">
+  $messages.batch-description  
+</p>
+#if ($batches)
+  <div class="page-block">
+    $batches
+  </div>
+#else
+  <p class="explanation">
+    <em>$messages.no-batches</em>
+  </p>
+#end
+#if ($batchForm)
+  <div class="page-block">
+    #if ($batchForm.error)
+      <p class="errorMessage">
+        $batchForm.error
+      </p>
+    #end
+    $batchForm.startTag()
+    #if ($batchForm.fields.name.error)
+      <p class="errorMessage">
+        $batchForm.fields.name.error
+      </p>
+    #end
+    $batchForm.fields.name
+    $batchForm.fields.new
+    $batchForm.endTag()
+  </div>
+#end

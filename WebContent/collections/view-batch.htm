@@ -1,0 +1,50 @@
+
+#if ($batchForm)
+  $batchForm.startTag()
+  <table>
+    <tr>
+      <td colspan="2">
+        #if ($batchForm.fields.name.error)
+          <p class="errorMessage">$batchForm.fields.name.error</p> 
+        #end
+        <strong>$messages.label-batch-name</strong> $batchForm.fields.name
+        $batchForm.fields.rename
+      </td>
+    <tr>
+      <td>
+        <div class="page-block">
+          #if ($batchForm.error)
+            <p class="errorMessage">
+              $batchForm.error
+            </p>
+          #end
+          #if ($batch.getSize() > 0) 
+            #if ($batchForm.fields.itemSelect.error)
+              <p class="errorMessage">
+                $batchForm.fields.itemSelect.error
+              </p>
+            #end
+            $batchForm.fields.itemSelect
+            <br />
+            $batchForm.fields.delete
+            $batchForm.fields.editAllItems
+          #else
+            <p>
+              $messages.empty-batch
+            </p>
+          #end
+          <br />
+          $batchForm.fields.deleteBatch
+        </div>
+      </td>
+      <td>
+        <div id="preview-div">
+          #if ($batch.getSize() > 0) 
+            $messages.preview-div
+          #end
+        </div>
+      </td>
+    </tr>
+  </table>
+  $batchForm.endTag()
+#end

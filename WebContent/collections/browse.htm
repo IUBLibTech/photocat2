@@ -1,0 +1,31 @@
+<table>
+  <tr>
+    <td class="selectBrowseCell">
+      <h2>$messages.header-browse</h2>
+      <p>
+        $messages.paragraph-description
+      </p> 
+      <p>
+        $messages.paragraph-advice
+      </p>
+      <ul>
+        #foreach ($labelTypePart in $labelTypePartList) 
+          <li><a href="browse.htm?fieldType=$format.url($labelTypePart.getType())&fieldPartName=$format.url($labelTypePart.getPart())">$format.html($labelTypePart.getLabel())</a></li>
+        #end
+      </ul>
+      #if ($errorMessage)
+        <div>
+          $errorMessage
+        </div>
+      #end
+    </td>
+    #if ($browseTable)
+      <td> 
+        <h2>$resultHeading</h2>
+        $browseTable
+      </td>
+    #end
+  </tr>
+</table>
+
+

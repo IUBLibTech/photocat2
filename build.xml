@@ -1,0 +1,75 @@
+<?xml version="1.0"?> 
+<project name="PhotoCat" default="build" basedir="."> 
+	
+	<property file="${basedir}/build.properties" />
+
+	<!-- Build the cataloger project code -->
+	<target name="build" description="Build the project">
+	    <mkdir dir="${build.dir}" />
+	    <mkdir dir="${class.dir}" />
+		<mkdir dir="${class.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${class.dir}" debug="on" debuglevel="lines,source">
+			<classpath>
+				<fileset dir="${lib.dir}">
+					<include name="**/*.jar"/>
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+	
+    <target name="war-webapp" depends="build" description="--> WAR the web application">
+        <mkdir dir="${dist.dir}"/>
+    	<mkdir dir="${dist.dir}/${target}"/>
+       	<mkdir dir="${dist.dir}/${target}/temp"/>
+    	<mkdir dir="${dist.dir}/${target}/temp/WEB-INF/lib" />
+       	<copy todir="${dist.dir}/${target}/temp">
+       		<fileset dir="${webapp.dir}"/>
+    	</copy>
+    	<copy todir="${dist.dir}/${target}/temp/WEB-INF/lib">
+    	    <fileset dir="${lib.dir}">
+    	    	<include name="*.jar" />
+    	    </fileset>
+        </copy>
+        <copy todir="${dist.dir}/${target}/temp/WEB-INF/lib">
+        	 <fileset dir="${lib.dir}/xerces">
+        	    <include name="*.jar" />
+        	 </fileset>
+        </copy>
+    	<copy todir="${dist.dir}/${target}/temp/WEB-INF/lib">
+             <fileset dir="${lib.dir}/lucene">
+                 <include name="*.jar" />
+             </fileset>
+        </copy>
+
+    	
+    	<!-- Copy the class files -->
+		<copy overwrite="yes" todir="${dist.dir}/${target}/temp/WEB-INF/classes">
+    		<fileset dir="${conf.dir}/${target}/classes"/>
+    	</copy>
+        <copy overwrite="yes" todir="${dist.dir}/${target}/temp/WEB-INF/classes">
+             <fileset dir="${class.dir}"/>
+         </copy>
+        <copy overwrite="yes" todir="${dist.dir}/${target}/temp/WEB-INF/classes">
+        	 <fileset dir="${src.dir}">
+        	 	<include name="**/*.properties" />
+        	 </fileset>
+    	</copy>
+
+    	
+    	<!-- delete the existing war file -->
+    	<delete file="${dist.dir}/${target}/${context.name}.war" failonerror="false"/>
+    	
+    	<!-- package the temporary directory -->
+    	<war destfile="${dist.dir}/${target}/${context.name}.war" 
+    		basedir="${dist.dir}/${target}/temp" 
+    		needxmlfile='false'/>
+    	<delete dir="${dist.dir}/${target}/temp" failonerror="no"/>
+    </target>
+
+	<target name="clean" description="Remove class files">
+		<delete failonerror="false">
+			<fileset dir="${dist.dir}" />
+			<fileset dir="${class.dir}" />
+		</delete>
+	</target>
+</project>

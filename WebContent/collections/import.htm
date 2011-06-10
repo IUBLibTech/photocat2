@@ -1,0 +1,51 @@
+#if ($errorMessage)
+  <div class="errorMessage">
+    $errorMessage
+  </div> 
+#end
+
+#if ($uploadForm) 
+  $uploadForm
+#end
+
+#if ($mappingForm)
+  $mappingForm.startTag()
+  <table>
+    #if ($mappingForm.error)
+      <tr>
+        <td colspan="2" style="color: red;"> $mappingForm.error </td>
+      </tr>
+    #end
+    <tr>
+      <th>$messages.column-label-source</th>
+      <th>$messages.column-label-dest</th>
+    </tr>
+    <tr>
+    #foreach ($field in $mappingForm.fieldList)
+      #if ($foreach.index % 2 == 0 && $foreach.index != 0)
+        </tr> 
+        <tr>
+      #end
+      <td>
+        $field
+      </td>
+    #end
+  </tr>
+  <tr>
+    <td colspan="2">
+      #foreach ($button in $mappingForm.buttonList)
+        $button &nbsp;
+      #end
+    </td>
+  </tr>
+  </table>
+  $mappingForm.endTag()
+#end
+
+#if ($dialog)
+  <h3>$operation.getDescription()</h3>
+  <p>$dialog.getMessageFromOperation()</p>
+#end
+#if ($confirmForm)
+  $confirmForm
+#end
