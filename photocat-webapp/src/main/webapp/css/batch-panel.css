@@ -1,0 +1,12 @@
+div.open-batches {
+  float:right;
+  clear:both;
+  width: 200px;
+  border-left: 2px dotted #D0D0D0;
+  overflow:hidden;
+  padding: 1em;
+}
+
+div.open-batch {
+  margin-top:.5em;
+}

@@ -1,0 +1,11 @@
+.svn
+.settings
+.project
+.classpath
+build/
+bin/
+dist/
+conf/
+target/
+photocat-webapp/src/main/webapp/click/
+photocat-webapp/configs/*-applicationContext.xml

@@ -1,0 +1,29 @@
+#if ($errorMessage)
+    <p class="errorMessage">$errorMessage</p>
+#end
+<table>
+  <tr>
+    <td>$form</td>
+    <td rowspan="2">
+      $itemPreviewPanel
+
+      #if ($transformationPanel)
+        $transformationPanel 
+      #end
+
+      #if ($itemHistoryPanel)
+        $itemHistoryPanel
+      #end 
+    </td>
+  </tr>
+  <tr>
+    <td>
+      #if ($search)
+        <em>$format.message($messages.editing-result, $result-index, $search.getTotalResultCount(), $search.getSearchQuery().getEnteredQuery())</em>
+      #end
+    </td>
+  </tr>
+</table>
+<div class="full-id-div">
+  $format.message($messages.full-id, $item.getId())
+</p>

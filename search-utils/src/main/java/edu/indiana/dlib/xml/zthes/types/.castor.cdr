@@ -1,0 +1,4 @@
+#Thu Jan 22 08:59:26 EST 2009
+edu.indiana.dlib.xml.zthes.types.TermApprovalType=edu.indiana.dlib.xml.zthes.types.descriptors.TermApprovalTypeDescriptor
+edu.indiana.dlib.xml.zthes.types.TermUpdateType=edu.indiana.dlib.xml.zthes.types.descriptors.TermUpdateTypeDescriptor
+edu.indiana.dlib.xml.zthes.types.TermStatusType=edu.indiana.dlib.xml.zthes.types.descriptors.TermStatusTypeDescriptor

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>edu.indiana.dlib</groupId>
+    <artifactId>srw</artifactId>
+    <version>2.0</version>
+  </parent>
+
+  <groupId>edu.indiana.dlib</groupId>
+  <artifactId>iudl-srw</artifactId>
+  <version>2.0</version>
+  <packaging>pom</packaging>
+
+  <description>
+        This project represent a patched version of a very old distribution
+        of a SRW implementation by OCLC.  The build involves:
+        1.  extracting their distributed archive
+        2.  copying some files over their extracted source files
+        3.  invoking their ant build script
+        4.  adding the output of that build as the jar artifact of
+            this project.
+
+        The end result is a patched or altered version of their distributed
+        SRW implementation.
+    </description>
+
+  <properties>
+    <srw.build.dir>${project.build.directory}/patched-srw</srw.build.dir>
+    <jdk.home>${java.home}</jdk.home>
+    <toolsversion>${java.version}</toolsversion>
+    <toolsjar>${java.home}/../lib/tools.jar</toolsjar>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>unpack</id>
+            <phase>generate-sources</phase>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${srw.build.dir}</outputDirectory>
+              <artifactItems>
+                <artifactItem>
+                  <groupId>ORG.oclc.os</groupId>
+                  <artifactId>SRW</artifactId>
+                  <version>0.0.1</version>
+                  <type>zip</type>
+                </artifactItem>
+              </artifactItems>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${srw.build.dir}/SRW-2.0/src</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/patch/java</directory>
+
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.7</version>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <configuration>
+              <target>
+                <ant target="jarSRW" antfile="${srw.build.dir}/SRW-2.0/build.xml"
+                  inheritAll="false" />
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>tools</artifactId>
+            <version>${toolsversion}</version>
+            <scope>system</scope>
+            <systemPath>${toolsjar}</systemPath>
+          </dependency>
+        </dependencies>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>1.9.1</version>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${srw.build.dir}/SRW-2.0/dist/SRW.jar</file>
+                  <type>jar</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

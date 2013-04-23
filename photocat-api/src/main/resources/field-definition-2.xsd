@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="info:ico/definition" xmlns="info:ico/definition" xmlns:d="info:ico/definition" xmlns:u="info:ico/collection">
+
+   <xs:import namespace="info:ico/collection" schemaLocation="collection.xsd"/>
+
+   <xs:element name="definitions" type="definitionsType">
+       <xs:unique name="field-type">
+           <xs:selector xpath="d:fieldDefinition" />
+           <xs:field xpath="@d:type" />
+       </xs:unique>
+       <xs:unique name="source-type">
+           <xs:selector xpath="d:sourceDefinition" />
+           <xs:field xpath="@d:type" />
+       </xs:unique>
+   </xs:element>
+
+   <xs:complexType name="definitionsType">
+        <xs:sequence>
+            <xs:element ref="fieldDefinition" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element ref="sourceDefinition" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+       <xs:attribute name="id" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:element name="fieldDefinition" type="fieldDefinitionType" />
+
+    <xs:complexType name="fieldDefinitionType">
+        <xs:sequence>
+            <xs:element ref="meaningAndUsage" />
+            <xs:element ref="javaImplementation" />
+            <xs:element ref="dataSpecification" />
+            <xs:element ref="defaultConfiguration" />
+        </xs:sequence>
+        <xs:attribute ref="type" use="required"/>
+    </xs:complexType>
+
+    <xs:attribute name="type" type="xs:string" />
+
+    <xs:element name="meaningAndUsage" type="xs:string" />
+    
+    <xs:element name="javaImplementation">
+        <xs:complexType>
+        <xs:sequence>
+            <xs:element ref="class" />
+            <xs:element ref="property" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="class" type="xs:string" />
+    
+    <xs:element name="property" type="propertyType" />
+
+    <xs:complexType name="propertyType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute ref="name" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:attribute name="name" type="xs:string" />
+
+    <xs:element name="dataSpecification">
+        <xs:annotation>
+            <xs:documentation>
+                This represents a description of how data is stored 
+                by this field.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="value" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="part-name">
+            <xs:selector xpath="d:value/d:part" />
+            <xs:field xpath="d:name" />
+        </xs:unique>
+        <xs:unique name="attribute-name">
+            <xs:selector xpath="d:attribute" />
+            <xs:field xpath="d:name" />
+        </xs:unique>
+    </xs:element>
+    
+    <xs:element name="value">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="part" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="part">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="name" />
+                <xs:element ref="meaning" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="name" type="xs:string" />
+    <xs:element name="meaning" type="xs:string" />
+    
+    <xs:element name="attribute">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="name" />
+                <xs:element ref="meaning" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="defaultConfiguration" type="defaultConfigurationType" />
+
+    <xs:complexType name="defaultConfigurationType">
+        <xs:sequence>
+            <xs:element ref="u:displayLabel" />
+            <xs:element ref="u:attributeDisplayLabel" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="u:partDisplayLabel" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="u:usageNotes" />
+            <xs:element ref="u:readOnly" />
+            <xs:element ref="u:repeatable" />
+            <xs:element ref="u:displayedInCatalogingBriefView" />
+            <xs:element ref="u:displayedInDiscoveryBriefView" />
+            <xs:element ref="u:displayedInDiscoveryFullView" />
+            <xs:element ref="u:private" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="sourceDefinition" type="sourceDefinitionType" />
+    
+    <xs:complexType name="sourceDefinitionType">
+        <xs:sequence>
+            <xs:element ref="javaImplementation" />
+            <xs:element ref="configurationParameters" />
+        </xs:sequence>
+        <xs:attribute ref="type" use="required"/>
+    </xs:complexType>
+    
+    <xs:element name="configurationParameters" type="configurationParametersType" />
+    
+    <xs:complexType name="configurationParametersType">
+        <xs:sequence>
+            <xs:element ref="param" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="param" type="paramType" />
+    
+    <xs:complexType name="paramType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="meaning" />
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>

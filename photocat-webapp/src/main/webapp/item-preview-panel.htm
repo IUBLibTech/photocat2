@@ -1,0 +1,37 @@
+#if ($item.getAspects() && !$item.getAspects().isEmpty())
+  <div class="panel">
+    <h4>$messages.preview-header</h4>
+    #foreach ($aspect in $item.getAspects())
+        #set ($preview = $aspect.getThumbnailView())
+        <div class="preview">
+            #if ($preview)
+              #if ($preview.getMimeType().equals("image/jpeg"))
+                  <img src="$preview.getURL()" alt="$messages.preview-alt"> 
+              #else
+                <a href="$preview.getURL()" target="other">$messages.preview-download [$preview.getMimeType()]</a>
+              #end
+            #elseif ($item.getAspects().size() == 1 && $item.getId().equals($aspect.getId()))
+              $messages.preview-no-preview-available
+            #end
+        </div>
+        #set ($views = $aspect.listDataViews())
+        #if ($views)
+          <div class="dataFiles">
+            #foreach ($view in $views)
+              #if ($view != $preview)
+                #if ($view.getURL())
+                  <a href="$view.getURL()" target="other">$messages.preview-download $view.getViewName()</a><br />
+                #else
+                  $view.getViewName() $messages.preview-view-not-available 
+                #end
+              #end
+            #end
+          </div>
+        #end
+    #end
+    #if ($manageLink)
+      <div class="dataFiles">$manageLink</div>
+    #end
+  </div>
+#end
+

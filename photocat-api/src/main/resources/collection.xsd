@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:c="info:ico/collection" xmlns:m="info:photocat/metadata"
+    targetNamespace="info:ico/collection" xmlns="info:ico/collection">
+    
+    <xs:import namespace="info:photocat/metadata" schemaLocation="field-metadata.xsd"/>
+    
+    <xs:element name="configuration" type="configurationType" />
+    
+    <xs:complexType name="configurationType">
+        <xs:sequence>
+            <xs:element ref="collection" />
+            <xs:element ref="item" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="collection" type="collectionType" />
+    
+    <xs:complexType name="collectionType">
+        <xs:sequence>
+            <xs:element ref="id" />
+            <xs:element ref="type" />
+            <xs:element ref="fullName" />
+            <xs:element ref="shortName" />
+            <xs:element ref="description" />
+            <xs:element ref="iconUrl" />
+            <xs:element ref="homepage" minOccurs="0" />
+            <xs:element ref="collectionManagerAddress" minOccurs="0" />
+            <xs:element ref="termsOfUse" minOccurs="0" />
+            <xs:element ref="facets" minOccurs="0" />
+            <xs:element ref="featured" minOccurs="0" />
+            <xs:element ref="publish" />
+            <xs:element ref="blockViews" minOccurs="0" />
+            <xs:element ref="enableRecordCreation" minOccurs="0"/>
+            <xs:element ref="enableImageSubmission" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="isPublic" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:element name="id" type="xs:string" />
+    <xs:element name="type">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="collection" />
+                <xs:enumeration value="unit" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    
+    <xs:element name="fullName" type="xs:string" />
+    <xs:element name="shortName" type="xs:string" />
+    <xs:element name="description" type="xs:string" />
+    <xs:element name="iconUrl" type="xs:string" />
+    <xs:element name="homepage" type="homepageType" />
+    <xs:element name="collectionManagerAddress" type="xs:string" />
+    <xs:element name="termsOfUse" type="xs:string" />
+    
+    <xs:complexType name="homepageType">
+        <xs:sequence>
+            <xs:element ref="title" />
+            <xs:element ref="url" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="title" type="xs:string" />
+    <xs:element name="url" type="xs:string" />
+    
+    <xs:element name="facets" type="facetsType" />
+    
+    <xs:complexType name="facetsType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element ref="facet" />
+            <xs:element ref="enumeratedFacet" />
+            <xs:element ref="dateFacet" />
+            <xs:element ref="collectionFacet" />
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:element name="facet" type="facetType" />
+    
+    <xs:complexType name="facetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="name" type="xs:string" />
+    <xs:element name="fieldType" type="xs:string" />
+    <xs:element name="fieldPart" type="xs:string" />
+    
+    <xs:element name="enumeratedFacet" type="enumeratedFacetType" />
+    
+    <xs:complexType name="enumeratedFacetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="facetValue" maxOccurs="unbounded" />
+        </xs:sequence>        
+    </xs:complexType>
+    
+    <xs:element name="facetValue" type="facetValueType" />
+    
+    <xs:complexType name="facetValueType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+            <xs:choice>
+                <xs:element ref="fieldValue" />
+                <xs:element ref="facetValue" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="fieldValue" type="xs:string" />
+    
+    <xs:element name="dateFacet" type="dateFacetType" />
+    
+    <xs:complexType name="dateFacetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+            <xs:element ref="dateFormat" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="dateFormat" type="xs:string" />
+    
+    <xs:element name="collectionFacet" type="collectionFacetType" />
+    
+    <xs:complexType name="collectionFacetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="featured" type="conditionalType" />
+        
+    <xs:complexType name="conditionalType">
+        <xs:choice>
+            <xs:element ref="and" />
+            <xs:element ref="or" />
+            <xs:element ref="not" />
+            <xs:element ref="condition" maxOccurs="unbounded" />
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:element name="and" type="conditionalType" />
+    <xs:element name="or" type="conditionalType" />
+    <xs:element name="not" type="conditionalType" />
+    <xs:element name="condition" type="conditionType" />
+    
+    <xs:complexType name="conditionType">
+        <xs:sequence>
+            <xs:element ref="property" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:element name="publish" type="conditionalType" />
+    
+    <xs:element name="blockViews" type="blockViewsType" />
+    
+    <xs:complexType name="blockViewsType">
+        <xs:annotation>
+            <xs:documentation>
+                When the blockViews element contains no conditions, it
+                applies to all items in the collection.  If it contains
+                one or more conditions, it applies to only those items
+                that meet all of the listed conditions.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element ref="condition" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="scope" use="required">
+            <xs:simpleType>
+                <xs:annotation>
+                    <xs:documentation>
+                        The value "all" indicates that all views should be blocked
+                        to the public.  The value of "high-res" means that all views
+                        but a thumbnail view should be blocked from public access.
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="high-res" />
+                    <xs:enumeration value="all" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    
+    <xs:element name="enableRecordCreation" type="genericWithPropertiesType" />
+    <xs:element name="enableImageSubmission" type="genericWithPropertiesType" />
+
+    <xs:complexType name="genericWithPropertiesType">
+        <xs:sequence>
+            <xs:element ref="property" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="item" type="itemType" />
+    
+    <xs:complexType name="itemType">
+        <xs:sequence>
+            <xs:element ref="fields" maxOccurs="unbounded"/>
+            <xs:element ref="transformation" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="transformation" type="transformationType" />
+    
+    <xs:complexType name="transformationType">
+        <xs:sequence>
+            <xs:element ref="formatName" />
+            <xs:element ref="xsltUrl" />
+        </xs:sequence>
+        <xs:attribute name="id" use="required" type="xs:string" />
+        <xs:attribute name="fidelity" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="lossless" />
+                    <xs:enumeration value="lossy" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    
+    <xs:element name="formatName" type="xs:string" />
+    <xs:element name="xsltUrl" type="xs:string" />
+    
+    <xs:element name="fields" type="fieldsType">
+        <xs:unique name="field-type">
+            <xs:selector xpath="c:field" />
+            <xs:field xpath="@type" />
+        </xs:unique>
+    </xs:element>
+    
+    <xs:complexType name="fieldsType">
+        <xs:sequence>
+            <xs:element ref="field" maxOccurs="unbounded" />
+            <xs:element ref="defaultValues" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="definitionId" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:element name="field" type="fieldType" />
+    
+    <xs:complexType name="fieldType">
+        <xs:sequence>
+            <xs:element ref="displayLabel" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="attributeDisplayLabel" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="partDisplayLabel" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="usageNotes" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="readOnly" minOccurs="0" />
+            <xs:element ref="repeatable" minOccurs="0" />
+            <xs:element ref="displayedInCatalogingBriefView" minOccurs="0" />
+            <xs:element ref="displayedInDiscoveryBriefView" minOccurs="0" />
+            <xs:element ref="displayedInDiscoveryFullView" minOccurs="0" />
+            <xs:element ref="private" minOccurs="0" />
+            <xs:element ref="disable" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element ref="vocabularySource" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="type" type="xs:string" use="required" />
+        <xs:attribute name="catalogingSortIndex" type="xs:int" use="optional" />
+        <xs:attribute name="publicationSortIndex" type="xs:int" use="optional" />
+    </xs:complexType>
+    
+    <xs:element name="disable">
+        <xs:complexType>
+            <xs:attribute name="type" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="attribute" />
+                        <xs:enumeration value="part" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="name" use="required" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="vocabularySource">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="authorityBinding" minOccurs="0" />
+                <xs:element ref="valueBinding" />
+                <xs:element ref="sourceConfig" minOccurs="0" />
+            </xs:sequence>
+            <xs:attribute name="type" use="required" />
+            <xs:attribute name="id" use="required" />
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="valueBinding" type="xs:string" />
+    
+    <xs:element name="authorityBinding" type="xs:string" />
+    
+    <xs:element name="sourceConfig">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="property" minOccurs="1" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="property" type="propertyType" />
+    
+    <xs:complexType name="propertyType">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" use="required" type="xs:string" />
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    
+    <xs:element name="displayLabel" type="xs:string" />
+    <xs:element name="attributeDisplayLabel">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="attributeName" use="required" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="partDisplayLabel">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="partName" use="required" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="usageNotes" type="xs:string" />
+    <xs:element name="readOnly" type="xs:boolean" />
+    <xs:element name="repeatable">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:boolean">
+                    <xs:attribute name="startingBoxes" use="optional" type="xs:positiveInteger" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="displayedInCatalogingBriefView" type="xs:boolean" />
+    <xs:element name="displayedInDiscoveryBriefView" type="xs:boolean" />
+    <xs:element name="displayedInDiscoveryFullView" type="xs:boolean" />
+    <xs:element name="private" type="xs:boolean" />
+    
+    <xs:element name="defaultValues" type="defaultValuesType" />
+    
+    <xs:complexType name="defaultValuesType">
+        <xs:sequence>
+            <xs:element ref="m:field" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>

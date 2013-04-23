@@ -1,0 +1,70 @@
+#if ($errorMessage)
+  <div class="errorMessage">
+    $errorMessage
+  </div> 
+#end
+
+#if ($uploadForm) 
+  <p class="explanation">
+    $messages.import-step-1-explanation
+  </p>
+  $uploadForm
+#end
+
+#if ($mappingForm)
+  <p class="explanation">
+    $messages.import-step-2-explanation
+  </p>
+  $mappingForm.startTag()
+  <table>
+    #if ($mappingForm.error)
+      <tr>
+        <td colspan="3" style="color: red;"> $mappingForm.error </td>
+      </tr>
+    #end
+    <tr>
+      <td colspan="3">
+        $mappingForm.fields.idField.label
+        $mappingForm.fields.idField
+      </td>
+    <tr>
+      <th>$messages.column-label-source</th>
+      <th>$messages.column-label-dest</th>
+      <th>$messages.column-label-conflict</th>
+    </tr>
+    <tr>
+    #foreach ($field in $mappingForm.fieldList)
+      #if ($field != $mappingForm.fields.idField)
+	      #if ($foreach.index % 3 == 1 && $foreach.index != 1)
+	        </tr> 
+	        <tr>
+	      #end
+	      <td>
+	        $field
+	      </td>
+	  #end
+    #end
+  </tr>
+  <tr>
+    <td colspan="3">
+      #foreach ($button in $mappingForm.buttonList)
+        $button &nbsp;
+      #end
+    </td>
+  </tr>
+  </table>
+  $mappingForm.endTag()
+#end
+
+#if ($dialog)
+  <h3>$operation.getDescription()</h3>
+  <p>$dialog.getMessageFromOperation()</p>
+#end
+#if ($confirmForm)
+  $confirmForm
+#end
+
+#if ($inprogress)
+  <h3>$operation.getDescription()</h3>
+  <p>$inprogress</p>
+#end

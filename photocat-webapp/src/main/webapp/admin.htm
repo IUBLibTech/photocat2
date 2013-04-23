@@ -1,0 +1,38 @@
+<p>
+  <h3>$messages.header-modules</h3>
+  $moduleTable
+</p>
+
+<p>
+  <h3>$messages.header-collection</h3>
+  $collectionTable
+</p>
+
+#if ($invalidIds)
+  #if (!$invalidIds.isEmpty())
+    <p class="errorMessage">
+      $format.message($messages.invalid-header)
+      <ul>
+        #foreach ($id in $invalidIds)
+          <li>$id</li> 
+        #end
+      </ul>
+    </p>
+  #end
+#end
+
+<p>
+  $reloadLink
+</p>
+
+#if ($createUnitForm)
+  <div>
+    $createUnitForm
+  </div>
+#end
+
+#if ($createCollectionForm)
+  <div>
+    $createCollectionForm
+  </div>
+#end

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/docs/api/org/apache/log4j/xml/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- DON"T FORGET TO CHANGE THE E-MAIL ADDRESS BELOW -->
+    <appender name="Email" class="org.apache.log4j.net.SMTPAppender">
+        <param name="BufferSize" value="512"/>
+        <param name="SMTPHost" value="mail-relay.indiana.edu"/>
+        <param name="From" value="mozakca@indiana.edu"/>
+        <!-- SPECIFY an e-mail address here -->
+        <param name="To" value="mozakca@indiana.edu"/>
+        <param name="Subject" value="Repository error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{ISO8601}]%n%n%-5p%n%n%c%n%n%m%n%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="RollingFile" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="c:/logs/out.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="50"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{MM-dd@HH:mm:ss} %-5p (%13F:%L) %3x - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="Console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                value="%d{MM-dd@HH:mm:ss} %-5p (%13F:%L) %3x - %m%n" />
+        </layout>
+    </appender>
+
+	<category name="edu.indiana">
+		<priority value="INFO"></priority>
+	</category>
+	
+	<root>
+		<priority value="ERROR"></priority>
+		<appender-ref ref="Console"/>
+		<appender-ref ref="RollingFile"/>
+	</root>
+	
+</log4j:configuration>

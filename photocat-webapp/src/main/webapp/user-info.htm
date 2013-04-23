@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th>$messages.label-username</th>
+    <td>$user.getUsername()</td>
+  </tr>
+  <tr>
+    <th>$messages.label-fullname</th>
+    <td>$user.getFullName()</td>
+  </tr>
+    <tr>
+    <th>$messages.label-email</th>
+    <td>$user.getEmailAddress()</td>
+  </tr>
+  #set ($groups = $user.getProperty("ADS-GROUPS"))
+  #if ($groups) 
+  <tr>
+    <th>$messages.label-groups</th>
+    <td>
+    #foreach ($group in $groups)
+      $group 
+    #end
+    </td>
+  </tr>
+  #end
+</table>

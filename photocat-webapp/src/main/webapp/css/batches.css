@@ -1,0 +1,18 @@
+/* This CSS file is just for the batches.html page and some other pages when batches are open */ 
+
+p.explanation {
+  margin-top: 1em;
+  margin-bottom:.5em;
+}
+
+div.page-block {
+  margin: .5em;
+}
+
+.block-600px {
+  display:block;
+  width:600px;
+  padding:.5em;
+  float:left;
+}
+

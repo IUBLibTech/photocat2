@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="photocat:3"
+xmlns:foxml="info:fedora/fedora-system:def/foxml#"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd">
+<foxml:objectProperties>
+<foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="A sample photocat item."/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#ownerId" VALUE=""/>
+<foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2015-11-09T02:50:01.061Z"/>
+<foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2015-11-09T15:21:27.528Z"/>
+</foxml:objectProperties>
+<foxml:datastream ID="AUDIT" STATE="A" CONTROL_GROUP="X" VERSIONABLE="false">
+<foxml:datastreamVersion ID="AUDIT.0" LABEL="Audit Trail for this object" CREATED="2015-11-09T02:50:01.061Z" MIMETYPE="text/xml" FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit">
+<foxml:xmlContent>
+<audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+<audit:record ID="AUDREC1">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByValue</audit:action>
+<audit:componentID>DC</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-11-09T02:50:32.213Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC2">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>ITEM-METADATA</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-11-09T02:51:10.218Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC3">
+<audit:process type="Fedora API-M"/>
+<audit:action>addDatastream</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-11-09T14:32:45.164Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+<audit:record ID="AUDREC4">
+<audit:process type="Fedora API-M"/>
+<audit:action>modifyDatastreamByReference</audit:action>
+<audit:componentID>RELS-EXT</audit:componentID>
+<audit:responsibility>fedoraAdmin</audit:responsibility>
+<audit:date>2015-11-09T15:21:27.528Z</audit:date>
+<audit:justification></audit:justification>
+</audit:record>
+</audit:auditTrail>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="DC" STATE="A" CONTROL_GROUP="X" VERSIONABLE="true">
+<foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Record for this object" CREATED="2015-11-09T02:50:01.061Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="386">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>A sample photocat item.</dc:title>
+  <dc:identifier>photocat:3</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="DC.1" LABEL="Dublin Core Record for this object" CREATED="2015-11-09T02:50:32.213Z" MIMETYPE="text/xml" FORMAT_URI="http://www.openarchives.org/OAI/2.0/oai_dc/" SIZE="462">
+<foxml:xmlContent>
+<oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+  <dc:title>A sample photocat item.</dc:title>
+  <dc:identifier>photocat:3</dc:identifier>
+  <dc:identifier>http://purl.dlib.indiana.edu/iudl/sample/1</dc:identifier>
+</oai_dc:dc>
+</foxml:xmlContent>
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="ITEM-METADATA" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="ITEM-METADATA.0" LABEL="" CREATED="2015-11-09T02:51:10.218Z" MIMETYPE="text/xml" SIZE="412">
+<foxml:binaryContent> 
+              PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPG06aXRlbU1ldGFkYXRhIHhtbG5z
+              Om09ImluZm86cGhvdG9jYXQvbWV0YWRhdGEiCiAgICAgICAgICAgICAgICB4bWxuczp4c2k9Imh0dHA6
+              Ly93d3cudzMub3JnLzIwMDEvWE1MU2NoZW1hLWluc3RhbmNlIgogICAgICAgICAgICAgICAgeHNpOnNj
+              aGVtYUxvY2F0aW9uPSJpbmZvOnBob3RvY2F0L21ldGFkYXRhIGh0dHA6Ly9wdXJsLmRsaWIuaW5kaWFu
+              YS5lZHUvaXVkbC94bWwvc2NoZW1hL3Bob3RvY2F0L2ZpZWxkLW1ldGFkYXRhLnhzZCI+CiAgIDxtOmlk
+              Pmh0dHA6Ly9wdXJsLmRsaWIuaW5kaWFuYS5lZHUvaXVkbC9zYW1wbGUvMTwvbTppZD4KICAgPG06Y29s
+              bGVjdGlvbklkPnNhbXBsZTwvbTpjb2xsZWN0aW9uSWQ+CjwvbTppdGVtTWV0YWRhdGE+Cg==
+</foxml:binaryContent> 
+</foxml:datastreamVersion>
+</foxml:datastream>
+<foxml:datastream ID="RELS-EXT" STATE="A" CONTROL_GROUP="M" VERSIONABLE="true">
+<foxml:datastreamVersion ID="RELS-EXT.0" LABEL="" CREATED="2015-11-09T14:32:45.164Z" MIMETYPE="application/rdf+xml" SIZE="268">
+<foxml:binaryContent> 
+              CjxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4
+              LW5zIyI+Cgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iaW5mbzpmZWRvcmEvcGhvdG9jYXQ6MyI+
+              Cgk8aGFzTW9kZWwgeG1sbnM9ImluZm86ZmVkb3JhL2ZlZG9yYS1zeXN0ZW06ZGVmL21vZGVsIyIgcmRm
+              OnJlc291cmNlPSJpbmZvOmZlZG9yYS9jbW9kZWw6aXRlbS1tZXRhZGF0YSI+PC9oYXNNb2RlbD4KPC9y
+              ZGY6RGVzY3JpcHRpb24+Cgo8L3JkZjpSREY+Cg==
+</foxml:binaryContent> 
+</foxml:datastreamVersion>
+<foxml:datastreamVersion ID="RELS-EXT.1" LABEL="" CREATED="2015-11-09T15:21:27.528Z" MIMETYPE="application/rdf+xml" SIZE="387">
+<foxml:binaryContent> 
+              CjxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4
+              LW5zIyI+Cgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iaW5mbzpmZWRvcmEvcGhvdG9jYXQ6MyI+
+              Cgk8aXNQYXJ0T2YgeG1sbnM9ImluZm86ZmVkb3JhL2ZlZG9yYS1zeXN0ZW06ZGVmL3JlbGF0aW9ucy1l
+              eHRlcm5hbCMiIHJkZjpyZXNvdXJjZT0iaW5mbzpmZWRvcmEvcGhvdG9jYXQ6MiI+PC9pc1BhcnRPZj4K
+              CTxoYXNNb2RlbCB4bWxucz0iaW5mbzpmZWRvcmEvZmVkb3JhLXN5c3RlbTpkZWYvbW9kZWwjIiByZGY6
+              cmVzb3VyY2U9ImluZm86ZmVkb3JhL2Ntb2RlbDppdGVtLW1ldGFkYXRhIj48L2hhc01vZGVsPgo8L3Jk
+              ZjpEZXNjcmlwdGlvbj4KCjwvcmRmOlJERj4K
+</foxml:binaryContent> 
+</foxml:datastreamVersion>
+</foxml:datastream>
+</foxml:digitalObject>

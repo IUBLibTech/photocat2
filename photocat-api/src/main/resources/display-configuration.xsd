@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="info:photocat/display-configuration" targetNamespace="info:photocat/display-configuration">
+    
+    <xs:element name="collection" type="collectionType" />
+    
+    <xs:complexType name="collectionType">
+        <xs:sequence>
+            <xs:element ref="id" />
+            <xs:element ref="availability" />
+            <xs:element ref="type" />
+            <xs:element ref="fullName" />
+            <xs:element ref="shortName" />
+            <xs:element ref="description" minOccurs="0" />
+            <xs:element ref="iconUrl" minOccurs="0" />
+            <xs:element ref="homepage" minOccurs="0" />
+            <xs:element ref="orderingInformationAddress" minOccurs="0" />
+            <xs:element ref="termsOfUse" minOccurs="0" />
+            <xs:element ref="featuredItems" minOccurs="0" />
+            <xs:element ref="facets" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="id" type="xs:string" />
+    <xs:element name="availability">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="public" />
+                <xs:enumeration value="private" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="type">
+        <xs:simpleType>
+            <xs:restriction base="xs:string">
+                <xs:enumeration value="collection" />
+                <xs:enumeration value="unit" />
+            </xs:restriction>
+        </xs:simpleType>
+    </xs:element>
+    <xs:element name="fullName" type="xs:string" />
+    <xs:element name="shortName" type="xs:string" />
+    <xs:element name="description" type="xs:string" />
+    <xs:element name="iconUrl" type="xs:string" />
+    <xs:element name="homepage" type="homepageType" />
+    <xs:element name="orderingInformationAddress" type="xs:string" />
+    <xs:element name="termsOfUse" type="xs:string" />
+    <xs:element name="featuredItems" type="featuredItemsType" />
+    <xs:element name="facets" type="facetsType" />
+    
+    <xs:complexType name="homepageType">
+        <xs:sequence>
+            <xs:element ref="title" />
+            <xs:element ref="url" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="title" type="xs:string" />
+    <xs:element name="url" type="xs:string" />
+    
+    <xs:complexType name="featuredItemsType">
+        <xs:sequence>
+            <xs:element ref="itemId" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="itemId" type="xs:string" />
+    
+    <xs:complexType name="facetsType">
+        <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element ref="facet" />
+            <xs:element ref="enumeratedFacet" />
+            <xs:element ref="dateFacet" />
+            <xs:element ref="collectionFacet" />
+        </xs:choice>
+    </xs:complexType>
+    
+    <xs:element name="facet" type="facetType" />
+    
+    <xs:complexType name="facetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="name" type="xs:string" />
+    <xs:element name="fieldType" type="xs:string" />
+    <xs:element name="fieldPart" type="xs:string" />
+    
+    <xs:element name="enumeratedFacet" type="enumeratedFacetType" />
+
+    <xs:complexType name="enumeratedFacetType">
+      <xs:sequence>
+          <xs:element ref="name" />
+          <xs:element ref="facetValue" maxOccurs="unbounded" />
+      </xs:sequence>        
+    </xs:complexType>
+    
+    <xs:element name="facetValue" type="facetValueType" />
+    
+    <xs:complexType name="facetValueType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+            <xs:choice>
+                <xs:element ref="fieldValue" />
+                <xs:element ref="facetValue" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="fieldValue" type="xs:string" />
+    
+    <xs:element name="dateFacet" type="dateFacetType" />
+    
+    <xs:complexType name="dateFacetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+            <xs:element ref="fieldType" />
+            <xs:element ref="fieldPart" />
+            <xs:element ref="dateFormat" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:element name="dateFormat" type="xs:string" />
+    
+    <xs:element name="collectionFacet" type="collectionFacetType" />
+    
+    <xs:complexType name="collectionFacetType">
+        <xs:sequence>
+            <xs:element ref="name" />
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>
+

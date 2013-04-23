@@ -1,0 +1,73 @@
+#foreach ($aspect in $item.getAspects())
+    #if ($aspect.getScalableView())
+        <div id="targetborder-$velocityCount" class="targetborder">
+            <div id="targetframe-$velocityCount" class="targetframe">
+              <div id="close" class="close">
+                <a href="#" id="close-link-$velocityCount" class="close-link">$messages.close-interactive</a>
+              </div>
+            </div> 
+        </div>
+        <script type="text/javascript">
+        //<![CDATA[
+           jQuery.noConflict();
+           jQuery(document).ready(function() {
+               jQuery("#zoom-link-$velocityCount").click(function() {
+                   jQuery("#zoom-link-$velocityCount").hide(); // this link loads the javascript and should only be clicked once
+                   jQuery("#rezoom-link-$velocityCount").show(); // this link toggles display of the loaded javascript widget
+                   jQuery("#targetborder-$velocityCount").show(); // this div needs to be visible when loading the widget
+                   // The iipsrv server path (/fcgi-bin/iipsrv.fcgi by default)
+                   var server = '$aspect.getScalableView().getServerURL()';
+    
+                   // The *full* image path on the server. This path does *not* need to be in the web
+                   // server root directory. On Windows, use Unix style forward slash paths without
+                   // the "c:" prefix
+                   var images = '$aspect.getScalableView().getImageUrl()'; 
+            
+                   // Copyright or information message
+                   var credit = '';
+            
+                   // Create our viewer object - note: must assign this to the 'iip' variable.
+                   // See documentation for more details of options
+                   iip = new IIP( "targetframe-$velocityCount", {
+                       image: images,
+                       server: server,
+                       credit: credit, 
+                       zoom: 1,
+                       render: 'random',
+                       showNavButtons: true
+                   });
+               });
+               jQuery("#rezoom-link-$velocityCount").click(function() {
+                   jQuery("#targetborder-$velocityCount").show();
+               });
+               jQuery("#close-link-$velocityCount").click(function() {
+                   jQuery("#targetborder-$velocityCount").hide();
+               });
+               jQuery("#zoom-link-$velocityCount").show();
+           });
+        //]]>    
+        </script>
+    #end 
+    #if ($aspect.getScreenView())
+      <div class="preview">
+        #if ($aspect.getLargeView())
+          <a href="$aspect.getLargeView().getURL()">
+            <img src="$aspect.getScreenView().getURL()" alt="$messages.preview-image" />
+          </a>
+        #else
+          <img src="$aspect.getScreenView().getURL()" alt="$messages.preview-image" />
+        #end
+        #if ($aspect.getScalableView())
+          <br />
+          <a href="#zoom-$velocityCount" id="zoom-link-$velocityCount" style="display:none;">$messages.interactive</a>
+          <a href="#rezoom-$velocityCount" id="rezoom-link-$velocityCount" style="display:none;">$messages.interactive</a>
+        #end
+      </div>
+    #else
+      #if ($aspect.getThumbnailView())
+        <div class="preview">
+            <img src="$aspect.getThumbnailView().getURL()" alt="$messages.preview-image" />
+        </div>
+      #end
+    #end
+  #end

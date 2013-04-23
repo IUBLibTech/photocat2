@@ -1,0 +1,353 @@
+/* OCLC Web Site Main Style Sheet */
+/* basic_oclc.css */
+
+/* basics */
+a:link, a:visited { background-color: transparent; }
+a:link { color: #C95000; }
+a:hover { color: #02008D; }
+a:visited { color: #C95000; }
+
+a:visited:hover { color: #02008D; }
+
+a:link img, a:hover img, a:visited img, a:visited:hover img { border: none; }
+
+body {
+	color: #000;
+	font-family: Verdana, Geneva, "Arial Unicode MS", Arial, Helvetica, sans-serif;
+}
+
+p {
+	line-height: 125%;
+	margin: 0;
+	padding: 6px 0 9px 0;
+}
+
+ul {
+	margin: 0 0 0 16px;
+	padding: 0 0 9px 0;
+}
+
+ol {
+	margin: 0 0 0 24px;
+	padding: 0 0 9px 0;
+}
+
+ul li { list-style-type: square; }
+ul li li { list-style-type: circle; }
+
+li {
+	line-height: 130%;
+	margin: 0;
+	padding: 3px 0;
+}
+
+h1 {
+	border-bottom: 1px solid #999;
+	color: #666;
+	font-weight: bold;
+	line-height: 1.2em;
+	margin: 0 0 8px 0;
+	padding: 0 0 8px 0;
+}
+
+h2 {
+	clear: left;
+	color: #222;
+	font-weight: bold;
+	margin: 0;
+	padding: 16px 0 2px 0;
+}
+
+h3 {
+	color: #666;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 0 2px 0;
+}
+
+h4 {
+	color: #666;
+	font-style: italic;
+	font-weight: bold;
+	padding: 8px 0 2px 0;
+}
+
+.runinhead {
+	color: #000;
+	display: inline;	
+	font-weight: bold;
+}
+
+h5 {
+	color: #777;
+	font-family: Tahoma, Geneva, "Arial Unicode MS", Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px 0 0 0;
+}
+
+.flush {
+	padding-top: 0px;
+	margin-top: 0px;
+}
+
+pre, code {
+	color: #008000;
+	font-family: Courier, "Courier New", "Andale Mono", Monoco, monospace;
+	margin: 0;
+	padding: 1.5em 0;
+}
+
+hr {
+	color: #999;
+	height: 1px;
+	width: 100%;
+}
+
+form {
+	margin: 0;
+	padding: 0;
+}
+
+dt {
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+acronym { border-bottom: 1px dotted #666; cursor: help }
+
+.superscript {
+	font-size: 70%;
+	vertical-align: text-top;
+}
+
+.subscript {
+	font-size: 70%;
+	vertical-align: text-bottom;
+}
+
+/* colors */
+.blue { background-color: #2700A5; }
+.green { background-color: #62C448; }
+.orange { background-color: #FF7600; }
+
+/* hidden OCLC name for print */
+p#oclcprint { display: none; }
+
+table.layouttable  {
+	border: none;
+	margin: 0;
+	width: 100%;
+}
+
+.layouttable th, .layouttable td {
+	border: none;
+	padding: 0;
+	vertical-align: top;
+}
+
+table {
+	border-right: 1px solid #999;
+	border-bottom: 1px solid #999;
+	margin: 12px 0;
+}
+
+th, td {
+	border-top: 1px solid #999;
+	border-left: 1px solid #999;
+	color: #333;
+	line-height: 140%;
+	padding: 9px;
+	text-align: left;
+	vertical-align: top;
+}
+
+th { background-color: #FFD5B0; }
+img { padding: 0; }
+button { cursor: auto; }
+
+input {
+	color: #000;
+	cursor: auto;
+}
+
+select {
+	color: #000;
+	font-family: Arial, Helvetica, Geneva, Verdana, sans-serif;
+	font-size: x-small;
+}
+
+textarea {
+	background-color: #FFF;
+	color: #000;
+	cursor: text;
+}
+
+fieldset {
+	border: thin #CCC none;
+	margin: 0;
+}
+
+legend {
+	font-size: small;
+	font-weight: bold;
+	line-height: normal;
+	margin: 0;
+	text-indent: 0;
+}
+
+label { font-weight: normal; }
+
+table.mclist  {
+	background-color: transparent;
+	border: none;
+	margin: 0;
+	padding: 9px 0;
+}
+
+.mclist th, .mclist td {
+	background-color: transparent;
+	border: none;
+	padding: 0 12px 12px 0;
+	vertical-align: top;
+}
+
+.tablerowcolor, .tablerowcolor td, .trcolor, .trcolor td { background-color: #FFEDDE; }
+.tablerowgray, .tablerowgray td, .trgray, .trgray td { background-color: #EEE; }
+.trmedgray, .trmedgray td { background-color: #DEDEDE; }
+.trwhite, .trwhite td { background-color: #FFF; }
+
+.imageright, div.imageright, table.imageright {
+	color: #666;
+	float: right;
+	font-weight: bold;
+	position: relative;
+}
+
+.imageright { padding: 0 0 2px 10px; }
+
+div.imageright, table.imageright { padding: 12px 0 10px 10px; }
+
+.imageleft, div.imageleft, table.imageleft {
+	color: #666;
+	float: left;
+	font-weight: bold;
+	position: relative;
+}
+
+.imageleft { padding: 0 10px 2px 0; }
+
+div.imageleft, table.imageleft { padding: 12px 10px 0 0; }
+
+.imagecenter, div.imagecenter, td.imagecenter {
+	color: #666;
+	font-weight: bold;
+	position: relative;
+	text-align: center;
+}
+
+.imagecenter { padding: 0 10px 2px 10px; }
+
+div.imagecenter, table.imagecenter { padding: 12px 10px 0 10px; }
+
+.imageleft p, .imagecenter p, .imageright p { padding: 0 0 3px 0; }
+
+.w65 { width: 65px; }
+.w75 { width: 75px; }
+.w100 { width: 100px; }
+.w125 { width: 125px; }
+.w150 { width: 150px; }
+.w175 { width: 175px; }
+.w200 { width: 200px; }
+.w225 { width: 225px; }
+.w250 { width: 250px; }
+.w275 { width: 275px; }
+.w300 { width: 300px; }
+.w325 { width: 325px; }
+.w350 { width: 350px; }
+.w375 { width: 375px; }
+.w400 { width: 400px; }
+.w425 { width: 425px; }
+.w450 { width: 450px; }
+.w475 { width: 475px; }
+.w500 { width: 500px; }
+.w525 { width: 525px; }
+.w550 { width: 550px; }
+.w575 { width: 575px; }
+.w600 { width: 600px; }
+.w100pct { width: 100%; }
+
+/* ----------------------font sizes---------------------- */
+
+/*   Todd Fahrner's keyword hack for IE           */
+/*   http://alistapart.com/stories/sizematters/   */
+
+body, body div, body p, body th, body td, body li, body dd    {
+	/* more specific to override rule in importing sheet */
+	font-size: x-small;
+	/* false value for WinIE4/5 */
+	voice-family: "\"}\"";
+	/* trick WinIE4/5 into thinking the rule is over */
+	voice-family: inherit;
+	/* recover from trick */
+	font-size: small;
+	/* intended value for better browsers */
+}
+
+html>body, html>body div, html>body p, html>body th, html>body td, html>body li, html>body dd {
+	font-size: small;
+	/* be nice to Opera */
+}
+
+/* end Todd Fahrner's keyword hack for IE */
+
+h1 { font-size: 135%; }
+h2 { font-size: 120%; }
+h3 { font-size: 105%; }
+h4 { font-size: 100%; }
+h5 { font-size: 80%; }
+
+.medium, .medium p, .medium li, .medium th, .medium td { font-size: 85%; }
+
+.imageright, .imageleft, .imagecenter, .small, .small p, .small li, .small th, .small td, .datatable p, .datatable th, .datatable td, .datatable li {
+	font-size: xx-small;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	font-size: x-small;
+}
+
+pre, code, .normal {
+	font-size: x-small;
+	voice-family: "\"}\"";
+	voice-family: inherit;
+	font-size: small;
+}
+
+/* CSS used by OCLC Research projects outside of the CMS */
+.formtable { background: #F5F5F5; }
+.noborder { border: none; }
+.noborder td { border: none; padding: 6px; }
+.button {
+	font-family: Verdana, Geneva, "Arial Unicode MS", Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	color: #FFF;
+	background: #E66A00;
+	margin: 2px 0;
+	padding: 0;
+	cursor: pointer;
+}
+
+table.layout { border: none; margin: 0; padding: 0; width: 100%; }
+table.layout td { border: none; margin: 0; padding: 0; }
+table.formtable th, table.formtable td { border-top: 1px solid #999; border-left: 1px solid #999; color: #333; padding: 4px; text-align: left; vertical-align: top}
+table.formtable td { width: 100%}
+input.button { margin: 0; }
+
+table#header { border: none; margin: 0px; padding: 0px; width: 100%; }
+table#header td { background: #666; border: none; vertical-align: top; width: 50%; }
+table#header td a:link, table#header td a:visited { color: #CCC; text-decoration: none; }
+table#header td a:hover, table#header td a:visited:hover { color: #FFF; text-decoration: underline; }
+table#header td#title { font-weight: bold; padding: 1em 1em 1em 3em; }
+table#header td#title a:link, table#header td#tdProject a:visited  { color: #FFF; text-decoration: none; }
+table#header td#title a:hover, table#header td#tdProject a:visited:hover { color: #FFF; text-decoration: underline; }
+table#header td#title h2 { color: #FFF; padding: 1em; }

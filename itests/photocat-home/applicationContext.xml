@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" 
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+    
+    <!--  An example configuration for the Photocat web application.  This sample file 
+          is by no means secure, but is likely a good starting place for understanding
+          the application and quickly getting a test version up and running.
+          
+          Note: the build routine (Maven) performs value substitutions in this file from
+          properties defined in "deployment-environment.properties" and then packages it
+          within the photocat war file.  
+          ${cargo.port} cargo port
+     -->
+    
+<beans>
+    <!--  The 'authenticationManager' bean  is the pluggable authentication manager.  
+          The DummyAuthenticationManager treats all requests as authentic.  
+          
+          This is only suitable for TEST uses.  In production consider an alternate
+          implementation. 
+      -->
+    <bean id="authenticationManager" class="edu.indiana.dlib.catalog.accesscontrol.impl.DummyAuthenticationManager">
+        <constructor-arg type="java.lang.String" value="admin"/>
+        <constructor-arg type="java.lang.String" value="admin@localhost" />
+        <constructor-arg type="java.lang.String" value="Local Admin (BYPASSED AUTHENTICATION)"/>
+    </bean>
+    
+    <!--  The 'authorizationManager' bean  is the pluggable authorization manager.  
+          The AllAccessAuthorizationManager grants all access to a single username.
+          
+          This is only suitable for TESTING environments.
+      -->
+    <bean id="authorizationManager" class="edu.indiana.dlib.catalog.accesscontrol.impl.AllAccessAuthorizationManager">
+        <constructor-arg type="java.lang.String" value="admin" />
+    </bean>
+    
+    <!--
+          Photocat is a configuration-driven application.  That means that all major features
+          and settings are loaded from configuration files, meaning that changes don't require
+          rebuilding, modifying or even restarting the application.
+          
+          A major component of photocat is the ConfigurationManager implementation.  The one 
+          laid out below expects configurations to be stored in a Fedora repository.
+          
+     -->
+    <bean id="configurationManager" class="edu.indiana.dlib.catalog.config.impl.FedoraConfigurationManager">
+        <constructor-arg type="java.lang.String" value="fedoraAdmin" />
+        <constructor-arg type="java.lang.String" value="integrationTest" />
+        <constructor-arg type="java.lang.String" value="localhost" />
+        <constructor-arg type="java.lang.String" value="fedora" />
+        <constructor-arg type="java.lang.Integer" value="${cargo.port}" />
+        <constructor-arg type="java.lang.String" value="cmodel:ico-configuration" />
+        <constructor-arg type="java.lang.String" value="ICO-CONFIGURATION" />
+        <constructor-arg type="java.lang.String" value="cmodel:field-definitions" />
+        <constructor-arg type="java.lang.String" value="FIELD-DEFINITIONS" />
+        <constructor-arg type="java.lang.String" value="info:fedora/fedora-system:def/relations-external#isPartOf" />
+        <constructor-arg type="java.lang.String" value="http://localhost:${cargo.port}/fedora/objects/photocat:1/datastreams/collection-template.xml/content" />
+        <constructor-arg type="java.lang.String" value="true" />
+    </bean>
+    
+    <!-- 
+        The ItemManager component of Photocat is responsible for interactions with items. 
+        The FedoraItemManager manages items stored in fedora.  The implementation 
+      -->
+    <bean id="itemManager" class="edu.indiana.dlib.catalog.config.impl.FedoraItemManager">
+        <constructor-arg type="java.lang.String" value="fedoraAdmin" />
+        <constructor-arg type="java.lang.String" value="integrationTest" />
+        <constructor-arg type="java.lang.String" value="localhost"/>
+        <constructor-arg type="java.lang.String" value="fedora" />
+        <constructor-arg type="java.lang.Integer" value="${cargo.port}" />
+        <constructor-arg type="java.lang.String" value="cmodel:item-metadata" />
+        <constructor-arg type="java.lang.String" value="ITEM-METADATA" />
+        <constructor-arg type="java.lang.String" value="IM-PRIVATE" />
+        <constructor-arg type="java.lang.String" value="http://localhost:${cargo.port}/fedora/objects/photocat:1/datastreams/block-all-images-policy.xml/content" />
+        <constructor-arg type="java.lang.String" value="http://localhost:${cargo.port}/fedora/objects/photocat:1/datastreams/block-all-but-thumbnail-policy.xml/content" />
+        <constructor-arg type="java.lang.Boolean" value="false" />
+    </bean>
+    
+    <bean id="searchManager" class="edu.indiana.dlib.catalog.search.impl.DLPSearchManager">
+        <constructor-arg type="java.lang.String" value="${itest.photocat.home}/parser-config.xml"/>
+        <constructor-arg type="java.lang.String" value="searchCQL"/>
+        <constructor-arg type="java.lang.String" value="http://localhost:${cargo.port}/srw-webapp/search/photocat-item-index"/>
+    </bean>
+    
+    <bean id="cacheManager" class="edu.indiana.dlib.catalog.cache.SimpleCacheManager">
+        <constructor-arg type="java.lang.String" value="${itest.photocat.home}/cache"/>
+    </bean>
+    
+    <bean id="vocabularySourceManager" class="edu.indiana.dlib.catalog.vocabulary.impl.SimpleVocabularySourceManager">
+        <constructor-arg type="java.lang.String" value="${itest.photocat.home}/vocab"/>
+    </bean>
+    
+    <bean id="batchManager" class="edu.indiana.dlib.catalog.batch.impl.FilesystemBatchManager">
+        <constructor-arg type="java.lang.String" value="${itest.photocat.home}/batches"/>
+    </bean>
+    <!--  
+              ${cargo.port} cargo port
+     -->
+</beans>
