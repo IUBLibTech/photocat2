@@ -1,4 +1,4 @@
-PhotCat
+PhotoCat
 =======
 
 This is the photocat cataloging application developed by the 
