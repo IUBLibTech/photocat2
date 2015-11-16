@@ -1383,16 +1383,16 @@ public class FedoraClient {
         
         try {
             // check for existing identifier
-            NodeList idNl = (NodeList) this.xpath.evaluate("oai_dc:dc/dc:identifier", dcDoc, XPathConstants.NODESET);
+            NodeList idNl = (NodeList) getXPath().evaluate("oai_dc:dc/dc:identifier", dcDoc, XPathConstants.NODESET);
             for (int i = 0; i < idNl.getLength(); i ++) {
-                if (id.equals(this.xpath.evaluate("text()", idNl.item(i), XPathConstants.STRING))) {
+                if (id.equals(getXPath().evaluate("text()", idNl.item(i), XPathConstants.STRING))) {
                     logger.debug("There is already a dc.identifier element with value \"" + id + "\" on " + pid + ".");
                     return;
                 }
             }
             
             // add identifier
-            Element oaiDcEl = (Element) this.xpath.evaluate("oai_dc:dc", dcDoc, XPathConstants.NODE);
+            Element oaiDcEl = (Element) getXPath().evaluate("oai_dc:dc", dcDoc, XPathConstants.NODE);
             Element idEl = dcDoc.createElementNS(this.getMapNamespaceContext().getNamespaceURI("dc"), "dc:identifier");
             idEl.appendChild(dcDoc.createTextNode(id));
             oaiDcEl.appendChild(idEl);
