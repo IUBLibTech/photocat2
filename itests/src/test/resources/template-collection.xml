@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?><u:configuration xmlns:u="info:ico/collection" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="info:ico/collection http://purl.dlib.indiana.edu/iudl/xml/schema/photocat/collection.xsd">
+    <u:collection isPublic="false">
+        <u:id>changeme</u:id>
+        <u:type>collection</u:type>
+        <u:fullName>TBD</u:fullName>
+        <u:shortName>TBD</u:shortName>
+        <u:description/>
+        <u:iconUrl>info:broken-url</u:iconUrl>
+        <u:featured>
+            <u:condition type="FIELD_COMPARISON">
+                <u:property name="field">FEATURED</u:property>
+                <u:property name="part">value</u:property>
+                <u:property name="value">true</u:property>
+            </u:condition>
+        </u:featured>
+        <u:publish>
+            <u:or>
+                <u:condition type="FIELD_COMPARISON">
+                    <u:property name="field">STATUS</u:property>
+                    <u:property name="part">status</u:property>
+                    <u:property name="value">minimal</u:property>
+                </u:condition>
+                <u:condition type="FIELD_COMPARISON">
+                    <u:property name="field">STATUS</u:property>
+                    <u:property name="part">status</u:property>
+                    <u:property name="value">pending completion</u:property>
+                </u:condition>
+                <u:condition type="FIELD_COMPARISON">
+                    <u:property name="field">STATUS</u:property>
+                    <u:property name="part">status</u:property>
+                    <u:property name="value">cataloged</u:property>
+                </u:condition>
+            </u:or>
+        </u:publish>
+        <u:blockViews scope="all">
+            <u:condition type="FIELD_COMPARISON">
+                <u:property name="field">COPYRIGHT_STATUS</u:property>
+                <u:property name="part">is copyrighted</u:property>
+                <u:property name="value">true</u:property>
+            </u:condition>
+        </u:blockViews>
+    </u:collection>
+    <u:item>
+        <u:fields definitionId="dlp-definitions">
+            <u:field type="TITLE"/>
+            <u:field type="DATE_TAKEN"/>
+            <u:field type="PHOTOGRAPHER">
+                <u:disable name="birth" type="part"/>
+                <u:disable name="death" type="part"/>
+                <u:disable name="nationality" type="part"/>
+            </u:field>
+            <u:field type="PERSON_PICTURED" />
+            <u:field type="TOPICAL_SUBJECT">
+                <u:vocabularySource id="lcsh-aaamc" type="LOCAL">
+                    <u:authorityBinding>authority</u:authorityBinding>
+                    <u:valueBinding>subject</u:valueBinding>
+                    <u:sourceConfig>
+                        <u:property name="displayName">LCSH</u:property>
+                    </u:sourceConfig>
+                </u:vocabularySource>
+            </u:field>
+            <u:field type="COUNTRY"/>
+            <u:field type="US_STATE" />
+            <u:field type="CITY" />
+            <u:field type="COPYRIGHT_STATUS"/>
+            <u:field type="STATUS"/>
+            <u:field type="MODIFYING_USER"/>
+        </u:fields>
+    </u:item>
+</u:configuration>

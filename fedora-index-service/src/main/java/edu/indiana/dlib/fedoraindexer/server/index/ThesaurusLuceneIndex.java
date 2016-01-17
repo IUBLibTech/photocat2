@@ -1,0 +1,397 @@
+/**
+ * Copyright 2015 Trustees of Indiana University. All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without modification, are
+ * permitted provided that the following conditions are met:
+ *
+ *    1. Redistributions of source code must retain the above copyright notice, this list of
+ *       conditions and the following disclaimer.
+ *
+ *    2. Redistributions in binary form must reproduce the above copyright notice, this list
+ *       of conditions and the following disclaimer in the documentation and/or other materials
+ *       provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE TRUSTEES OF INDIANA UNIVERSITY ``AS IS'' AND ANY EXPRESS
+ * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL
+ * THE TRUSTEES OF INDIANA UNIVERSITY OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * The views and conclusions contained in the software and documentation are those of the
+ * authors and should not be interpreted as representing official policies, either expressed
+ * or implied, of the Trustees of Indiana University.
+ */
+package edu.indiana.dlib.fedoraindexer.server.index;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.WritableByteChannel;
+import java.util.LinkedList;
+import java.util.Properties;
+import java.util.Queue;
+
+import edu.indiana.dlib.fedora.client.iudl.DLPFedoraClient;
+import edu.indiana.dlib.fedoraindexer.server.FedoraObjectAdministrativeMetadata;
+import edu.indiana.dlib.fedoraindexer.server.IndexInitializationException;
+import edu.indiana.dlib.fedoraindexer.server.IndexOperationException;
+import edu.indiana.dlib.fedoraindexer.tools.SpreadsheetIndexer;
+import edu.indiana.dlib.fedoraindexer.tools.TGMParser;
+
+/**
+ * An object to generate an index containing a thesuarus of terms
+ * that may be retrieved in ZThes format.  Unlike other Index
+ * implementations, a single object backs this entire index, so a
+ * single call to "update" will rewrite the entire index.
+ * 
+ * In addition to the configuration properties accepted by the
+ * superclass, this class reqires the following two properties.
+ * <ul>
+ *   <li>
+ *     <em>dsName</em> - the name of the datastream containing
+ *     the vocabulary information
+ *   </li>
+ *   <li>
+ *     <em>format</em> - one of the names of the supported formats.
+ *     This currently includes "THREE_COLUMN_XLS" and "TGM_XML". 
+ *   </li>
+ *   <li>
+ *     <em>termIdUriPrefix</em> - the URI prefix for IDs generated
+ *     for this item.  This may be null when not using the 
+ *     TREE_COLUMN_XLS format, or if the ID need not be a URI.
+ *   </li>
+ *   <li>
+ *     <em>spreadsheetPageIndex</em> - a parameter required for
+ *     THREE_COLUMN_XLS formtted data, to indicate which page
+ *     of the spreadsheet is to be used.  If unset and needed,
+ *     this value defaults to 0.
+ *   </li>
+ *   <li>
+ *     <em>spreadsheetRowOffset</em> - a parameter required for
+ *     THREE_COLUMN_XLS formatted data to indicate which row
+ *     to start with.  (Typically this is one or zero depending
+ *     on whether there is a row dedicated to column names)
+ *   </li>
+ * </ul>
+ */
+public class ThesaurusLuceneIndex extends DefaultLuceneIndex {
+
+    private enum Format {
+        /**
+         * A Format specifier for a vocabulary that is encoded in an
+         * MS Excel spreadsheet in which the first column represents
+         * the term name (when column 2 is empty) or the broader term
+         * name (when column 2 is filled).  Column two represents the
+         * term name if present.  Column 3 represents the definition.
+         */
+        THREE_COLUMN_XLS,
+        
+        /**
+         * A format specifier for vocabularies encoded in the way that
+         * the TGM 1 XML file is encoded.
+         */
+        TGM_XML;
+    };
+    
+    /**
+     * The format of the datastream containing all of the term information.
+     */
+    private Format format;
+    
+    /**
+     * The name of the datasteram containing all of the term information.
+     */
+    private String dsName;
+    
+    /**
+     * The prefix for the URI form of the id for the given term.  The id 
+     * is generated by URI encoding the term name and appending it to this
+     * URI prefix.  If this is null, the term ID will simply be the term
+     * name.
+     */
+    private String termIdUriPrefix;
+
+    /**
+     * The index of the spreadsheet sheet containing the term data.
+     */
+    private int spreadsheetPageIndex;
+    
+    /**
+     * The index of the spreadsheet row where data begins.
+     */
+    private int spreadsheetRowOffset;
+    
+    /**
+     * The FedoraClient to mediate access to the repository.  For this index
+     * a read-only instance would be suitable and no authentication is
+     * required because this class simply fetches a datastream.  This object
+     * is not threadsafe and should only have methods invoked from within 
+     * indexObject.
+     */
+    private DLPFedoraClient fc;
+    
+    /**
+     * The last IndexObjectWorkerThread used to offload index updating operations.
+     * If this is non-null and still running, new files to index shoudl be added
+     * using the "addFileToIndex()" method.  If that method fails, this Thread
+     * should be finishing up and the caller should wait for it to die then
+     * create and start a new thread.  Because the FedoraClient isn't threadsafe,
+     * this method must first fetch any files from fedora that are needed for
+     * that index update operation (with the assumption that the caller of this
+     * method is ensuring that the FedoraClient is not being used by other 
+     * threads).
+     */
+    private IndexObjectWorkerThread workerThread;
+    
+    public ThesaurusLuceneIndex(Properties config, DLPFedoraClient fc) throws IndexInitializationException {
+        super(config);
+        this.fc = fc;
+
+        // Parse the "format" property.
+        try {
+            this.format = Format.valueOf(config.getProperty("format"));
+            if (this.format == null) {
+                throw new IndexInitializationException("Required property 'format' is not set!");
+            }
+        } catch (Throwable t) {
+            throw new IndexInitializationException("Required property 'format' was invalid!");
+        }
+        
+        // Parse the dsName property.
+        this.dsName = config.getProperty("dsName");
+        if (this.dsName == null) {
+            throw new IndexInitializationException("Required property 'dsName' is not set!");
+        }
+        
+        // Parse the termIdUriPrefix property.
+        this.termIdUriPrefix = config.getProperty("termIdUriPrefix");
+        
+        // Parse the spreadsheetPageIndex property
+        String spreadsheetPageIndexStr = config.getProperty("spreadsheetPageIndex");
+        if (spreadsheetPageIndexStr == null) {
+            this.spreadsheetPageIndex = 0;
+        } else {
+            try {
+                this.spreadsheetPageIndex = Integer.parseInt(spreadsheetPageIndexStr);
+            } catch (NumberFormatException ex) {
+                throw new IndexInitializationException("Property 'termIdUriPrefix' is not a valid number!");
+            }
+        }
+        
+        // Parse the spreadsheetRowOffset property
+        String spreadsheetRowOffsetStr = config.getProperty("spreadsheetRowOffset");
+        if (spreadsheetRowOffsetStr == null) {
+            this.spreadsheetRowOffset = 1;
+        } else {
+            try {
+                this.spreadsheetRowOffset = Integer.parseInt(spreadsheetRowOffsetStr);
+            } catch (NumberFormatException ex) {
+                throw new IndexInitializationException("Property 'spreadsheetRowOffset' is not a valid number!");
+            }
+        }
+    }
+
+    /**
+     * This implementation of Index is asynchronous in nature.  Because for
+     * some data this method could take many minutes to complete, this method
+     * queues this request for processing on another thread and returns 
+     * immediately.
+     */
+    public void indexObject(Operation op, FedoraObjectAdministrativeMetadata objectAdminInfo) throws IndexOperationException {
+        if (op.equals(Operation.REMOVE)) {
+            // should clear the index, but for our purposes we won't bother
+        } else {
+            File file;
+            try {
+                file = this.fetchDatastreamToTempFile(objectAdminInfo);
+            } catch (IOException ex) {
+                throw new IndexOperationException("Error downloading datastream \"" + this.dsName + "\" from " + objectAdminInfo.getPid() + ".", ex);
+            }
+            if (this.workerThread == null) {
+                this.workerThread = new IndexObjectWorkerThread(file);
+                this.workerThread.start();
+            } else {
+                if (!this.workerThread.addFileToIndex(file)) {
+                    try {
+                        this.workerThread.join(5000);
+                        if (this.workerThread.isAlive()) {
+                            LOGGER.error("Worker thread failed to die a natural death!");
+                        }
+                    } catch (InterruptedException ex) {
+                        throw new IndexOperationException("Error closing down finished worker thread! (INTERRUPTED)", ex);
+                    }
+                    this.workerThread = new IndexObjectWorkerThread(file);
+                    this.workerThread.start();
+                }
+            }
+        }
+    }
+    
+    /**
+     * Fetches the relevant datastream and writes it to disk.  This method must 
+     * be called only with indexObject() because it uses fc, which is NOT 
+     * thread-safe.
+     * @throws IOException 
+     */
+    private File fetchDatastreamToTempFile(FedoraObjectAdministrativeMetadata objectAdminInfo) throws IOException {
+        InputStream is = null;
+        FileOutputStream fos = null;
+        try {
+            File file = File.createTempFile(objectAdminInfo.getPid().replace(":", "_") + "_" + this.dsName, (this.format == Format.THREE_COLUMN_XLS ? ".xls" : ".xml"));
+            fos = new FileOutputStream(file);
+            fc.pipeDatastream(objectAdminInfo.getPid(), dsName, null, fos);
+            LOGGER.debug(this.getIndexName() + " downloaded " + objectAdminInfo.getPid() + "." + dsName + " to " + file.getPath() + ".");
+            return file;
+        } finally {
+            if (is != null) {
+                is.close();
+            }
+            if (fos != null) {
+                fos.close();
+            }
+        }
+    }
+    
+    /**
+     * The code that indexes a given file (as meant to be called
+     * asynchronously).
+     */
+    public void indexFileAsync(File file) throws IndexOperationException {
+        boolean opened = false;
+        if (this.writer == null) {
+            this.open();
+            opened = true;
+        }
+        try {
+            // parse it according to the parser rules, replacing the entire index
+            if (this.format.equals(Format.THREE_COLUMN_XLS)) {
+                long start = System.currentTimeMillis();
+                SpreadsheetIndexer spreadsheetIndexer = new SpreadsheetIndexer(this.termIdUriPrefix);
+                int termsDeleted = this.writer.maxDoc();
+                this.writer.deleteAll();
+                int count = spreadsheetIndexer.indexSpreadsheet(file, this.writer, this.spreadsheetPageIndex, this.spreadsheetRowOffset);
+                long end = System.currentTimeMillis();
+                LOGGER.info(this.getIndexName() + " was updated from " + termsDeleted + " to " + count + " terms in " + ((end - start) / 1000) + " seconds.");
+                this.writer.commit();
+            } else if (this.format.equals(Format.TGM_XML)) {
+                long start = System.currentTimeMillis();
+                FileInputStream fis = new FileInputStream(file);
+                try {
+                    int termsDeleted = this.writer.maxDoc();
+                    this.writer.deleteAll();
+                    TGMParser.indexTGM(fis, this.writer);
+                    int termsAdded = this.writer.maxDoc();
+                    this.writer.commit();
+                    long end = System.currentTimeMillis();
+                    LOGGER.info(this.getIndexName() + " was updated from " + termsDeleted + " to " + termsAdded + " terms in " + ((end - start) / 1000) + " seconds.");
+                } finally {
+                    fis.close();
+                }
+            } else {
+                throw new IndexOperationException("Error updating index, unsupported Format! (" + this.format + ")");
+            }
+        } catch (Exception ex) {
+            try {
+                this.writer.rollback();
+                throw new IndexOperationException("Error updating index (successfully rolled back).", ex);
+            } catch (IOException ex2) {
+                throw new IndexOperationException((ex.getMessage() == null ? "[no message]" : ex.getMessage()) + " (failed to roll back!)", ex);
+            }
+        } finally {
+            if (opened) {
+                this.close();
+            }
+        }
+    }
+    
+    /**
+     * A thread that is run to index an object when that indexing might 
+     * take a great deal of time. 
+     */
+    public class IndexObjectWorkerThread extends Thread {
+
+        private Queue<File> filesToIndex;
+        
+        private boolean willAcceptMoreFiles;
+        
+        public IndexObjectWorkerThread(File file) {
+            this.filesToIndex = new LinkedList<File>();
+            this.filesToIndex.add(file);
+            this.willAcceptMoreFiles = true;
+        }
+        
+        /**
+         * Processes every operation on the filesToIndex List before
+         * stopping. 
+         */
+        public void run() {
+            File nextFile = null;
+            do {
+                synchronized (this) {
+                    if (!filesToIndex.isEmpty()) {
+                        nextFile = filesToIndex.poll();
+                    } else {
+                        // no more files to process, fall through...
+                        nextFile = null;
+                        this.willAcceptMoreFiles = false;
+                    }
+                }
+                
+                if (nextFile != null) {
+                    try {
+                        indexFileAsync(nextFile);
+                        nextFile.delete();
+                    } catch (IndexOperationException ex) {
+                        LOGGER.error("Asynchronous Index Update failed for file \"" + nextFile.getPath() + "\".", ex);
+                    }
+                }
+            } while (this.willAcceptMoreFiles);
+        }
+        
+        /**
+         * Adds a file to the list, using careful synchronization to
+         * ensure that files are only added if they will be processed.
+         */
+        public synchronized boolean addFileToIndex(File file) {
+            if (this.willAcceptMoreFiles) {
+                this.filesToIndex.add(file);
+                LOGGER.info("Queued file \"" + file.getAbsolutePath() + "\" for indexing.");
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+    }
+    
+    /**
+     * An efficient function that uses NIO calls to write one stream to another.
+     */
+    public static void writeStreamToStream(InputStream is, OutputStream os) throws IOException {
+        ReadableByteChannel inputChannel = Channels.newChannel(is);  
+        WritableByteChannel outputChannel = Channels.newChannel(os);  
+        ByteBuffer buffer = ByteBuffer.allocateDirect(16 * 1024);  
+        while (inputChannel.read(buffer) != -1) {  
+            buffer.flip();  
+            outputChannel.write(buffer);  
+            buffer.compact();  
+        }  
+        buffer.flip();  
+        while (buffer.hasRemaining()) {  
+            outputChannel.write(buffer);  
+        }  
+       inputChannel.close();  
+       outputChannel.close();
+    }
+
+}

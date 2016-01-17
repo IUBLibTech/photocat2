@@ -1,0 +1,83 @@
+[STATUS]
+Starting
+2015-11-05 11:03:41AM EST
+Starting Fedora Server instance
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Initializing Server
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Fedora Version: 3.4.1
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Fedora Build Date: 2010-10-15 00:17:28 UTC-0400
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Fedora Build Number: 8817
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Server Host Name: localhost
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Server Port: 8080
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Initializing Modules
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:42AM EST
+Post-Initializing Modules
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:43AM EST
+Initializing XACML Authorization Module
+[/STATUS]
+
+[STATUS]
+Starting
+2015-11-05 11:03:46AM EST
+Initializing Triplestore
+[/STATUS]
+
+[STATUS]
+Started
+2015-11-05 11:03:50AM EST
+[/STATUS]
+
+[STATUS]
+Stopping
+2015-11-05 11:03:57AM EST
+Shutting down Fedora Server and modules
+[/STATUS]
+
+[STATUS]
+Stopped
+2015-11-05 11:03:58AM EST
+Shutdown Successful
+[/STATUS]
+

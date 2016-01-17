@@ -1,0 +1,109 @@
+<div class="content-area">
+    #if ($collection)
+      #if (!$collection.isPublic())
+        <p class="privacy-warning">$messages.private-collection-notice</p>
+      #end
+      #if ($featuredItems)
+        <div class="featured-items-internal">
+          <ul id="mycarousel" class="jcarousel-skin-tango">
+            #foreach ($item in $featuredItems)
+              <li>
+                <div class="previw-image">
+                  <a href="item.htm?id=$item.getIdentifier()&amp;scope=$item.getCollectionIdentifier()">
+                    <img src="$item.getImageUrl()" alt="$item.getIdentifier()" />
+                  </a>
+                </div>
+                <div class="preview-description">
+                  #foreach ($fieldData in $item.getFields())
+                     $fieldData.getValue()
+                  #end
+                </div>
+              </li>
+            #end
+          </ul>
+      </div>
+      
+      <script type="text/javascript">
+
+		function mycarousel_initCallback(carousel)
+		{
+		    // Disable autoscrolling if the user clicks the prev or next button.
+		    carousel.buttonNext.bind('click', function() {
+        		carousel.startAuto(0);
+		    });
+
+		    carousel.buttonPrev.bind('click', function() {
+        		carousel.startAuto(0);
+		    });
+
+		    // Pause autoscrolling if the user moves with the cursor over the clip.
+		    carousel.clip.hover(function() {
+        		carousel.stopAuto();
+		    }, function() {
+        		carousel.startAuto();
+		    });
+		};
+
+		jQuery(document).ready(function() {
+		    jQuery('#mycarousel').jcarousel({
+        		auto: 2,
+        		scroll: 1,
+        		/*visible: 2, */
+		        wrap: 'circular',
+        		initCallback: mycarousel_initCallback
+		    });
+		});
+
+	 </script>
+      
+      #else
+        <p><em>$messages.no-featured-items</em></p>
+      #end
+      <h3>
+        $format.message($messages.about, $collection.getFullName())
+      </h3>
+      #if ($collection.getDescription())
+        <p>
+          $collection.getDescription()
+        </p>
+      #end
+      #if ($collection.getHomepageUrl()) 
+        <p>
+          $format.message($messages.link-text, $collection.getHomepageUrl(), $collection.getHomepageTitle())
+        </p>
+      #end
+      <p>
+        <a href="search.htm?scope=$collection.getId()">$messages.view-all-images</a>
+      </p>
+    #elseif ($unit)
+      #if (!$unit.isPublic())
+        <p class="privacy-warning">$messages.private-unit-notice</p>
+      #end
+      <h3 class="unit-h3">
+        $format.message($messages.about, $unit.getFullName())
+      </h3>
+      <p>
+        $unit.getDescription()
+      </p>
+      #if ($unit.getHomepageUrl()) 
+        <p>
+          $format.message($messages.link-text, $unit.getHomepageUrl(), $unit.getHomepageTitle())
+        </p>
+      #end
+      <h3 class="unit-h3">$messages.collections</h3>
+      #foreach ($collection in $collections)
+        <div class="collection-box">
+          <a href="splash.htm?scope=$collection.getId()"><img src="$collection.getIconUrl()" class="collection-image-preview" alt="$collection.getShortName()" /></a>
+          <h4><a href="splash.htm?scope=$collection.getId()">$collection.getFullName()</a></h4>
+          <p>
+            $collection.getDescription()
+          </p>
+        </div>
+      #end
+    #end
+</div>
+<div class="browse-area">
+  #if ($browsePanel)
+    $browsePanel
+  #end
+</div>

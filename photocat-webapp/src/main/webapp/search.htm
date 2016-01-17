@@ -1,0 +1,80 @@
+<div class="content-area">
+  #if ($searchResults)
+    #foreach ($constraint in $searchResults.getSearchQuery().getSearchConstraints())
+      #if (!$constraint.isImplicit())
+        <div class="constraint">$constraint.getDisplay() [<a href="$links.getUrlToToggleConstraint($constraint)">X</a>]</div>
+      #end
+    #end
+    <br class="clear-both" />
+
+    #if ($searchResults.getTotalResultsCount() > 0) 
+        #set ($firstResultNumber = $searchResults.getSearchQuery().getPagingSpecification().getStartingIndex() + 1)
+        #set ($lastVisibleResultNumber = $firstResultNumber + $searchResults.getResults().size() - 1)
+        <div class="result-summary">
+          $format.decimal($firstResultNumber) - $format.decimal($lastVisibleResultNumber) of <strong>$format.decimal($searchResults.getTotalResultsCount())</strong> results
+        </div>
+        #if ($pageLinks.size() > 1) 
+          <div class="paging-links">
+            <span class="paging-link-label">$messages.page</span>
+            #foreach ($link in $pageLinks)
+              <span class="paging-link">$link</span>
+            #end
+          </div>
+        #end
+        <br class="clear-both" />
+      #else
+        <p class="no-results-message">
+          $messages.no-results
+        </p>
+      #end
+  
+      #foreach ($result in $results)
+          <div class="searchResultCell">
+            #if ($scopeId) 
+              <div class="searchThumb">
+                <a href="item.htm?id=$result.getIdentifier()&amp;scope=$scopeId">
+                  #if ($result.getImageUrl())
+                    <img src="$result.getImageUrl()" alt="$result.getIdentifier()" />
+                  #else
+                    <img src="$context/images/missing.gif" alt="$result.getIdentifier()" />
+                  #end
+                </a>
+              </div>
+            #else
+              <div class="searchThumb">
+                <a href="item.htm?id=$result.getIdentifier()">
+                  #if ($result.getImageUrl())
+                    <img src="$result.getImageUrl()" alt="$result.getIdentifier()" />
+                  #else
+                    <img src="$context/images/missing.gif" alt="$result.getIdentifier()" />
+                  #end
+                </a>
+              </div>
+            #end
+            <div class="searchThumbInfo">
+              <div>
+                #foreach ($fieldData in $result.getFields())
+                  <a href="item.htm?id=$result.getIdentifier()&amp;scope=$scopeId">
+                    $fieldData.getValue()
+                  </a>
+                #end
+              </div>
+            </div>   
+          </div>   
+      #end
+      #if ($pageLinks.size() > 1) 
+        <br class="clear-both" />
+        <div class="paging-links">
+          <span class="paging-link-label">$messages.page</span>
+          #foreach ($link in $pageLinks)
+            <span class="paging-link">$link</span>
+          #end
+        </div>
+      #end
+   #end
+</div>
+<div class="browse-area">
+  #if ($browsePanel)
+    $browsePanel
+  #end
+</div>

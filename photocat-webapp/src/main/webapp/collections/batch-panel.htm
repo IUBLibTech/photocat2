@@ -1,0 +1,16 @@
+#if ($openBatches)
+  #if ($openBatches.size() > 0)
+    <div class="open-batches">
+      #if ($openBatches.size() > 0) 
+        <h3>$messages.header-open-batches</h3>
+        #foreach ($batch in $openBatches)
+          <div class="open-batch">
+            <strong>$format.html($batch.getName())</strong> [$batch.getSize()]
+            <a href="view-batch.htm?batchId=$batch.getId()">manage</a> | 
+            <a href="edit-batch.htm?batchId=$batch.getId()">batch edit</a>
+          </div>
+        #end
+      #end
+    </div> 
+  #end
+#end

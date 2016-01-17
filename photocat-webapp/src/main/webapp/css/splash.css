@@ -1,0 +1,73 @@
+.edit-link-div {
+  float:right;
+  margin-right: 1em;
+  font-size:80%;
+}
+
+.featured-items {
+  position:relative;
+  border: 6px solid black;
+  border-radius:2em;
+  -moz-border-radius:2em;
+  padding: .5em;
+  margin: 1em;
+  background:#a0a0a0;
+  /*width: */
+}
+
+.featured-item {
+  display:inline-block;
+  padding:1em;
+  margin:1em;
+  text-align:center;
+  background:#ffffff;
+  border: 1px solid gray;
+}
+
+.featured-items-internal ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    /* display:inline; THIS LINE WILL BREAK THE JCAROUSELLITE */
+}
+
+.featured-items-internal ul li {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    display: inline;
+    overflow: hidden; 
+}
+
+.prev {
+  margin-top: 80px;
+  float:right;
+  padding-left:.25em;
+}
+
+.next {
+  margin-top: 80px;
+  float:left;
+  padding-right:.25em;
+}
+
+.content-area h3.unit-h3 {
+	margin-top: 0;
+}
+
+.collection-box {
+  border: 2px solid #505050;
+  padding: .5em .5em 10px .5em;
+  background: #d1d1d1;
+  margin-top: 15px;
+  overflow:auto;
+}
+
+.collection-box h4 { margin: 0; }
+
+.collection-image-preview {
+  background:#ffffff;
+  margin-right: 8px;
+  float: left;
+  display: block;
+}

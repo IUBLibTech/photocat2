@@ -1,0 +1,11 @@
+.block-600px {
+  display:block;
+  width:600px;
+  padding:.5em;
+  float:left;
+}
+
+.return-link {
+  padding:.5em;
+  clear:left;
+}

@@ -1,0 +1,139 @@
+.facet-box {
+  margin: 0px;
+  padding: 0px;
+  width: 220px;
+  min-height: 200px;
+}
+
+.facet-box-header {
+  background:#D0D0D0;
+  border-radius: 15px 15px 0 0;
+  border: 2px solid gray;
+  border-bottom:1px solid gray;
+  margin:0;
+  padding:0.02em 0.5em 0 0.5em;
+}
+
+.facet-box-header h3 {
+  margin-top:0;
+  margin-bottom:0px;
+  padding: 5px 0;
+}
+
+.facet-box-contents {
+  margin:0px;
+}
+
+.facet-box-contents ul li h4 {
+    border-bottom: 1px solid gray;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0.25em;
+}
+
+.facet-box-contents ul li.expanded h4 {
+    background-image: url('../images/triangle-red-down.png');
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    /*border-bottom:0; */
+}
+
+.facet-box-contents ul li.expanded {
+}
+
+.facet-box-contents ul li.expanded div div.full {
+  /*border-bottom: 1px solid gray;
+  border-top: 1px solid gray; */ 
+}
+
+.facet-box-contents ul li.expanded div div.summary {
+  /*border-bottom: 1px solid gray; 
+  border-top: 1px solid gray; */
+}
+
+.facet-box-contents ul li.collapsed h4 {
+    background-image: url('../images/triangle-red-right.png');
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    /*border-bottom: 1px solid gray; */
+}
+
+.facet-box-contents ul li.empty h4 {
+    padding-left: 30px;
+}
+
+.facet-listing {
+  border-bottom: 1px solid gray;
+}
+
+/* 
+ * A top-level facet that does not have
+ * the ability to be expanded or collapsed
+ * either because javascript is disabled or
+ * it has no child elements.
+ */
+ul.facet-values li {
+}
+
+.hover {
+  background-color:#D0D0D0;
+  
+}
+
+ul.facets {
+  margin-top:0px;
+  margin-bottom:0px;
+  padding-left:0px;
+  list-style:none;
+  border-left: 2px solid gray;
+  border-bottom: 1px solid gray;
+  border-right: 2px solid gray;
+}
+
+ul.facets li {
+  margin-top:0px;
+}
+
+.facet-name {
+  margin:0px;
+  font-weight: bold;
+}
+
+ul.facet-values {
+  list-style:none;
+  padding-left:20px;
+}
+
+ul.sub-category {
+  list-style:none;
+  padding-left:20px;
+}
+
+.facet-value {
+  display:block;
+  line-height:20px;
+  margin-left:20px;
+  text-indent:-20px;
+}
+
+.expand-link {
+  display:inline;
+  vertical-align:top;
+}
+ 
+.collapse-link {
+  display:inline;
+  vertical-align:top;
+}
+
+.summary {
+  display:none;
+}
+
+span.switch-to-summary-view {
+  margin: 5px;  
+}
+
+span.switch-to-full-view {
+  margin: 5px;
+}

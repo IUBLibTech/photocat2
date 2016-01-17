@@ -1,0 +1,51 @@
+#if ($item && $collection)
+  #if ($prev || $return || $next)
+    <ul class="result-set-nav-links">
+      #if ($prev)
+        <li>&lt;&lt; $prev</li>
+      #else
+        <li>&nbsp;</li> 
+      #end
+      #if ($return)
+        <li>$return</li>
+      #else
+        <li>&nbsp;</li>  
+      #end
+      #if ($next)
+        <li>$next &gt;&gt;</li>
+      #else
+        <li>&nbsp;</li>  
+      #end
+    </ul>
+  #end
+
+  $item-panel
+
+  <div class="metadata">
+    <table>
+      #foreach ($field in $collection.listFieldConfigurations(false))
+        #if ($collection.getValueSummaryHtml($item.getMetadata(), $field.getFieldType()))
+          <tr>
+            <th>$format.html($field.getDisplayLabel())</th>
+            <td>$collection.getValueSummaryHtml($item.getMetadata(), $field.getFieldType())</td>
+          </tr>
+        #end
+      #end
+    </table>
+    #if ($contactLink)
+      <div>
+        $contactLink
+      </div>
+    #end
+  </div>
+  #if ($collection.getTermsOfUse())
+    <div class="terms-of-use">
+      <h4>$format.message($messages.terms-of-use, $collection.getFullName())</h4>
+      <p>$collection.getTermsOfUse()</p>
+    </div>
+  #end
+#else
+  <p class="error">
+    $messages.unable-to-locate-item
+  </p>
+#end

@@ -1,0 +1,14 @@
+.collectionBlock {
+  float:left;
+  height:300px;
+  width:350px;
+  padding:1em;
+  text-align:center;
+}
+
+.collectionBlock h3 {
+}
+
+.collectionBlock div.collectionBlockPreview {
+
+}

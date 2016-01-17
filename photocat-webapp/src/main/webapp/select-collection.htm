@@ -1,0 +1,16 @@
+#if (!$configurations.isEmpty())
+    #foreach ($collection in $configurations)
+      <div class="collectionBlock">
+        <a href="collection/$collection.getId()/">
+          <h3>$collection.getFullName()</h3>
+        </a>
+        <div class="collectionBlockPreview">
+          <a href="collection/$collection.getId()/">
+            <img src="$collection.getIconUrl()" alt="$messages.thumbnail" />
+          </a>
+        </div>
+      </div>
+    #end
+#else 
+  <p>$messages.no-collections</p>
+#end

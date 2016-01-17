@@ -1,0 +1,11 @@
+#if ($batch)
+  <h3>$format.html($batch.getName())</h3> 
+  <p>
+    $explanation
+  </p>
+  $form
+#else
+  <p>
+    $messages.no-batch
+  </p>
+#end

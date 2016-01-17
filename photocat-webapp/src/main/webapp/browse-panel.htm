@@ -1,0 +1,127 @@
+#if (($facets && !$facets.isEmpty()) || ($scopeCountMap))
+    <div class="facet-box">
+      <div class="facet-box-header">
+          #if ($originalSearch)
+            <h3>$messages.refine-your-search</h3>
+          #elseif ($scope)
+            <h3>Browse $format.message($messages.scope, $scope)</h3>
+          #else
+            <h3>Browse</h3>
+          #end
+      </div>
+      
+      <div class="facet-box-contents">
+          <ul class="facets">
+            #if ($scopeCountMap && $cm)
+              <li>
+                <h4>$messages.collections</h4>
+                <div class="facet-listing">
+                  <div class="full">
+                    <ul class="facet-values">
+                    #foreach ($u in $cm.getCollectionConfigurations("unit", true))
+                      <li>
+                        <div class="facet-value">
+	                        <a href="splash.htm?scope=$u.getId()">$u.getShortName()</a> [$format.decimal($scopeCountMap.get($u))]
+	                        <ul class="sub-category unit-facet">
+	                          #foreach ($c in $cm.getChildren($u.getId(), "collection", true))
+	                            #if ($scopeCountMap.get($c))
+	                              <li>
+	                                <a href="splash.htm?scope=$c.getId()">$c.getShortName()</a> [$format.decimal($scopeCountMap.get($c))]
+	                              </li>
+	                            #end
+	                          #end
+	                        </ul>
+	                    </div>
+                      </li>
+                    #end
+                    #foreach ($c in $cm.getOrphans("collection", true))
+                      #if ($scopeCountMap.get($c))
+                        <li>
+                          <div class="facet-value">
+                              <a href="splash.htm?scope=$c.getId()">$c.getShortName()</a> [$format.decimal($scopeCountMap.get($c))]
+                          </div>
+                        </li>
+                      #end
+                    #end
+                    </ul>
+                  </div>
+                </div>
+              </li>
+            #end
+            
+            #if ($facets)
+              #foreach ($facet in $facets)
+                <li>
+                  <h4>$facetNames.get($facet)</h4>
+                  <div class="facet-listing">
+                      #if ($facetSummaries.get($facet).size() > 0)
+                          <div class="summary">
+                            <ul class="facet-values">
+                              #foreach ($value in $facetSummaries.get($facet))
+                                #if ($links.isFacetSelected($facet.getBrowseQuery(), $value)) 
+                                  <li class="selected">
+                                    <div class="facet-value">
+                                      <strong>$format.html($value.getFieldDisplayLabel())</strong> - <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $value)">remove</a
+                                    </div>
+                                  </li>
+                                #else
+                                  <li>
+                                    <div class="facet-value">
+                                      <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $value)">$format.html($value.getFieldDisplayLabel())</a> [$format.decimal($value.getHitCount())]
+                                    </div>
+                                  </li>
+                                #end
+                              #end
+                            </ul>
+                          </div>
+                      #end
+                      <div class="full">
+                        #if ($facet.listBrowseResults().isEmpty())
+                          <ul class="facet-values">
+                            <em>$messages.no-facet-values</em>
+                          </ul>
+                        #else
+                          <ul class="facet-values">
+                            #foreach ($value in $facet.listBrowseResults())
+                              #if ($links.isFacetSelected($facet.getBrowseQuery(), $value)) 
+                                <li class="selected">
+                                  <div class="facet-value">
+                                    <strong>$format.html($value.getFieldDisplayLabel())</strong> - <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $value)">remove</a>
+                              #else
+                                <li>
+                                  <div class="facet-value">
+                                    <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $value)">$format.html($value.getFieldDisplayLabel())</a> [$format.decimal($value.getHitCount())]
+                              #end
+                              #if ($value.listBrowseResults())
+                                <ul class="sub-category">
+                                  #foreach ($v2 in $value.listBrowseResults())
+                                     #if ($links.isFacetSelected($facet.getBrowseQuery(), $v2)) 
+                                       <li class="selected">
+                                         <div class="facet-value">
+                                           <strong>$format.html($v2.getFieldDisplayLabel())</strong> - <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $v2)">remove</a>
+                                         </div>
+                                       </li>
+                                     #else
+                                       <li>
+                                         <div class="facet-value">
+                                           <a href="$links.getUrlToToggleFacet($facet.getBrowseQuery(), $v2)">$format.html($v2.getFieldDisplayLabel())</a> [$format.decimal($v2.getHitCount())]
+                                         </div>
+                                       </li>
+                                     #end
+                                  #end
+                                </ul> 
+                              #end
+                                  </div>
+                                </li>
+                            #end
+                          </ul>
+                        #end
+                      </div>
+                  </div> 
+                </li>
+              #end
+            #end
+          </ul>
+      </div>
+    </div>
+#end

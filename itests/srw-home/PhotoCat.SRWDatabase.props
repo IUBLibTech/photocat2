@@ -1,0 +1,60 @@
+# Mapping from the CQL index set to fields in the Lucene index
+indexSynonym.dc.identifier=id
+
+# Specifying the special-purpose field version suffixes
+exactSuffix:.exact
+facetSuffix:.facet
+sortSuffix:.sort
+stemmedSuffix:.stem
+isSetSuffix:.present
+
+# The analyzer class used for the query.  It is important
+# that the class be available on the classpath and that it
+# is compatible with the indices being searched.  If
+# unspecified, the StandardAnalyzer will be used.
+queryAnalyzerClass=edu.indiana.dlib.search.analyzers.BasicSRUSupportAnalyzer
+
+# Maximum number of records a client may request in a single searchRetrieveResponse
+maximumRecords = 100
+
+# Default number of records to return in a single searchRetrieveResponse
+numberOfRecords = 20
+
+# Number of seconds to keep a result set active (in memory)
+defaultResultSetTTL = 60
+
+# Supported result schemas
+# The last schema listed is the default.
+# Each schema includes the format of a record to be returned from this search.
+# recordStart and recordEnd will be reproduced verbatim in the result record.
+# Each recordElement should be sequentially numbered. The portion after the first equals sign
+# indicates the name of the tag that will hold the result value, portion after the second
+# equals sign indicates the Lucene field from which the value will be taken.
+# If the Lucene index includes the result record exactly, the recordItem property should be used
+# instead of the recordElement properties.
+
+xmlSchemas = i
+i.identifier = info:photocat/item
+#i.location = http://purl.dlib.indiana.edu/iudl/xml/schema/photocat/field-metadata.xsd
+i.namespace = info:photocat/item
+i.title = i: IUDL item metadata, a structured metadata format for the Indiana University Digital Library Program's cataloging workflow 
+i.recordItem = i
+
+databaseInfo.title = Cataloging Workflow Metadata
+databaseInfo.description = 
+databaseInfo.contact = 
+
+explainStyleSheet = /${srw.webapp-name}/explainResponse.xsl
+scanStyleSheet = /${srw.webapp-name}/scanResponse.xsl
+searchStyleSheet = /${srw.webapp-name}/searchRetrieveResponse.xsl
+
+indexSet.cql = info:srw/cql-context-set/1/cql-v1.1
+indexSet.dc = info:srw/cql-context-set/1/dc-v1.1
+
+# The default access points, which will be listed in the Explain record
+# Values containing "search" indicate terms that will be included as a
+# search index, while values containing "scan" will be included as scan terms.
+qualifier.cql.allRecords=search
+qualifier.cql.serverChoice=search
+qualifier.cql.resultSetId= search
+qualifier.dc.identifier=search

@@ -1,0 +1,8 @@
+#Thu Jan 22 08:59:26 EST 2009
+edu.indiana.dlib.xml.zthes.Postings=edu.indiana.dlib.xml.zthes.descriptors.PostingsDescriptor
+edu.indiana.dlib.xml.zthes.TermNote=edu.indiana.dlib.xml.zthes.descriptors.TermNoteDescriptor
+edu.indiana.dlib.xml.zthes.Relation=edu.indiana.dlib.xml.zthes.descriptors.RelationDescriptor
+edu.indiana.dlib.xml.zthes.ThesNote=edu.indiana.dlib.xml.zthes.descriptors.ThesNoteDescriptor
+edu.indiana.dlib.xml.zthes.Zthes=edu.indiana.dlib.xml.zthes.descriptors.ZthesDescriptor
+edu.indiana.dlib.xml.zthes.Thes=edu.indiana.dlib.xml.zthes.descriptors.ThesDescriptor
+edu.indiana.dlib.xml.zthes.Term=edu.indiana.dlib.xml.zthes.descriptors.TermDescriptor

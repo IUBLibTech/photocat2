@@ -1,0 +1,15 @@
+<h3>$messages.search-and-replace-header</h3>
+#if ($reason)
+  <p>
+    $reason
+  </p> 
+#else
+  #if ($form) 
+    <p>
+      $messages.search-and-replace-instructions
+    </p>
+    <p>
+      $form
+    </p>
+  #end
+#end

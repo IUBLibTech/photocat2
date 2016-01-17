@@ -1,0 +1,136 @@
+/* ------------ MOBILE DESIGN ------------------------------------------------------------- */
+
+
+/* ------------ IU Header ------------ */
+	div#row-top div.iu-stripe img {
+		display: none;
+	}
+	
+	div#row-top { background-color: #ffffff; }
+	
+	div#row-top div.iu-stripe {
+		width: 100%;
+		padding:0; margin:0;
+		background: url('../images/mobileIU.png') #ffffff 0px 0px no-repeat;
+		height: 30px;
+	}
+
+div#row-banner { 
+	-moz-box-shadow: none;
+  	-webkit-box-shadow: none;
+  	box-shadow: none; 
+}
+
+div#row-content { width: auto; margin-left: 5px; margin-right: 5px; }
+
+div#row-banner { background: none; width: auto; margin-left: 5px; margin-right: 5px; }
+.title-search-bar { background: none; width:auto; }
+
+div.title { float: none; }
+div.search { float: none; }
+input#quickSearchForm_search { display: none; }
+
+div.content-area { width: auto; }
+
+div.content-area ul.multi-slideshow {
+	width: auto;
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	-khtml-border-radius: 15px;
+    border-radius: 15px;
+}
+
+ul.multi-slideshow li img.imagefloat { 
+	float: none; display: block; margin-left: auto; margin-right: auto; 
+	-moz-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-khtml-border-radius: 0px;
+    border-radius: 0px;
+}
+
+div.description { display: none; }
+
+li#slideshow-caption { width: auto; }
+
+li#slideshow-caption div.slideshow-caption-container { width: auto; word-wrap: break-word; padding-top: 5px; padding-left: 5px; text-align: center; }
+
+div.slideshow-caption-container img { display: none; }
+
+div.page-content { width: auto; }
+
+div.content-area { clear: none; float: none; width: auto; margin: 0 auto 0 auto; padding: 0; } 
+
+div.browse-area { float: left; margin-left: 0; width: 100%; }
+div.facet-box { width: 100%; }
+div.facet-box, div.facet-box-header {
+	-moz-border-radius: 15px 15px 0 0;
+	-webkit-border-radius: 15px 15px 0 0;
+	-khtml-border-radius: 15px 15px 0 0; 
+	border-radius: 15px 15px 0 0; 
+}
+
+#row-banner { height: auto; }
+.search { padding-bottom: 0; padding-right: 0; }
+
+.title h1 { font-size: large; }
+
+#quickSearchForm { width: auto; margin-right: 0; }
+#quickSearchForm_searchScope { display: none; }
+#quickSearchForm_query { width: 95%; }
+
+ul.facets li ul li { padding: 5px 0; }
+
+ul.facets li h4, ul.facets li h4.hover { padding-top: 10px; }
+ul.facets li h4.hover { padding-top: 5px 0; }
+
+div#about { width: auto; }
+
+.paging-links {
+  margin:0.25em;
+  padding:0.25em;
+  float: none;
+}
+
+.result-summary {
+  margin:0.25em;
+  padding:0.25em;
+  float:none;
+}
+
+/* ------------ Image Collections Online Unit ------------ */
+
+.collection-box h4 { margin-top: 5px; text-align: center; }
+.collection-image-preview { float: none; margin-left: auto; margin-right: auto; }
+
+/* ------------ Image Collections Online Collection ------------ */
+
+/* Slideshow Carousel */
+.jcarousel-container-horizontal { margin-top: 10px; }
+.jcarousel-skin-tango .jcarousel-container-horizontal { width: 225px; }
+.jcarousel-skin-tango .jcarousel-clip-horizontal { width: 230px; }
+
+/* ------------ Image Collections Item View ------------ */
+
+div.preview { float: none; }
+div.preview img { width: 300px; }
+
+table#contactForm-fields td.fields, table#contactForm-fields td.fields + td { float: left; clear: both; }
+
+/* ------------ Image Collections Help ------------ */
+
+.helpImageCaption { display: none; }
+.helpImage { display: none; }
+
+/* ------------ Image Collections Online Footer ------------ */
+	div#footerIU {
+		padding: 10px 0 5px 0;
+		width: auto; padding-top: 10px; margin-left: 5px; margin-right: 5px;
+	}
+	
+	div#footerIU #copyright p span { display:none; }
+	
+/* ------------ IU Footer ------------ */
+	
+	div#blockiu, div#statement {
+		display:none;
+	}

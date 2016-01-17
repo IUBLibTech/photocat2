@@ -1,0 +1,63 @@
+<table>
+    <tbody>
+        <tr>
+            <td style="padding-right: 30px;">
+                <h3>
+                    $collection.getFullName()
+                </h3>
+                <ul class="selection">
+                    <li style="padding-bottom: 10px;">
+                        <a href="basic-collection-setup.htm">$messages.basic</a>&nbsp;
+                    </li>
+                    <li style="padding-bottom: 10px;">
+                        <a href="field-setup.htm">$messages.field</a>
+                    </li>
+                    <li style="padding-bottom: 10px;">
+                        <a href="record-creation-setup.htm">$messages.creation</a>
+                    </li>
+                </ul>
+                <table border="1"> 
+                  <tr>
+                    <th>$messages.config-file</th>
+                    <th>$messages.export</th>
+                    <th>$messages.import</th>
+                    <th>$messages.notes</th>
+                  </tr>
+                  <tr>
+                    <td>$messages.collection-config</td>
+                    <td><a href="$context/export-collection-configuration.xml?cid=$collection.getId()">$messages.download</a></td>
+                    <td>
+                      #if ($importConfigurationForm.isDisabled())
+                      #else
+                        $importConfigurationForm
+                      #end
+                    </td>
+                    <td>$messages.config-notes</td>
+                  </tr>
+                  <tr>
+                   <td>$messages.mods-xslt</td>
+                   <td>
+                     #if ($existingModsTransform)
+                       <a href="$existingModsTransform">$messages.download</a>
+                     #else
+                       $messages.not-available
+                     #end
+                   </td>
+                   <td>
+                     #if ($importModsTransformationForm.isDisabled())
+                     #else
+                       $importModsTransformationForm
+                     #end
+                   </td>
+                   <td>
+                     $messages.mods-notes
+                   </td>
+                  </tr>
+                </table>
+            </td>
+            <td>
+              <img src="$collection.getIconUrl()" alt="$messages.img-preview-alt" />
+            </td>
+        </tr>
+    </tbody>
+</table>

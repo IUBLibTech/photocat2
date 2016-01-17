@@ -1,0 +1,18 @@
+#if ($pendingOperations)
+  #if ($pendingOperations.size() > 0)
+    <div class="pending-operations">
+      <h3>$messages.header-pending-operations</h3>
+      #foreach ($op in $pendingOperations) 
+        <div class="pending-operation">
+          $op.getDescription() 
+          #if ($op.getEstimatedPercentCompleted() >= 0)
+            [$format.decimal($op.getEstimatedPercentCompleted(), "%N0")]
+          #end
+          #if ($op.requiresUserInteraction()) 
+            <a href="operation-progress.htm">(!)</a>
+          #end
+        </div>
+      #end
+    </div>
+  #end
+#end

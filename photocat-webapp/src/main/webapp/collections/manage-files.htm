@@ -1,0 +1,21 @@
+#if ($form)
+  <div class="block-600px">
+    <h4>$messages.upload-images</h4>
+      $form
+  </div>
+#end
+#if ($table)
+  <div class="block-600px">
+    <h4>$messages.delete-images</h4>
+    $table
+  </div>
+#end
+#if ($inProcessTable)
+  <div class="block-600px">
+    <h4>$messages.other-images</h4>
+    $inProcessTable
+  </div>
+#end
+<div class="return-link">
+   <a href="edit-item.htm?id=$item.getId()">Return to Item</a>
+</div>

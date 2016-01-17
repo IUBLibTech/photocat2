@@ -1,0 +1,60 @@
+.collectionlist {
+    padding: 0px;
+    margin: 0px;
+}
+
+.collectionlist .collectionlist-top {
+    list-style-type: none; 
+} 
+
+.collectionlist .topitem {
+    font-weight: normal;
+    float: left;
+    display: block;
+} 
+.collectionlist .topitem a, .collectionlist .topitem a:visited {
+    display: block; 
+    text-decoration: none;
+}
+
+.collectionlist .topitem a:hover {
+    font-weight: normal;
+    text-decoration: none;  
+}
+
+
+.collectionlist ul.submenu {
+    list-style-type: none; 
+    position: absolute; 
+    margin: 0; 
+    padding: 0; 
+    display: none; 
+    width: 200px;  
+    z-index: 255;
+    text-decoration:none;
+    background: #FDE3B5;    
+} 
+.collectionlist ul.submenu li {
+    padding: 0; 
+    margin: 0; 
+} 
+.collectionlist ul.submenu li a, .collectionlist ul.submenu li a:visited {
+    text-decoration: none; 
+    margin: 0;
+    padding: .25em;
+}
+.collectionlist ul.submenu li img {
+    vertical-align: middle;
+}
+.collectionlist ul.submenu li a:hover {
+    vertical-align: middle;
+    text-decoration: underline; 
+}
+.collectionlist li:hover ul, .collectionlist li.over ul {
+    margin: 0;
+    display: block; 
+    zoom: 1;
+}
+.collectionlist li>ul {
+    top: auto; left: auto;
+}

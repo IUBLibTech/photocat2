@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta name="viewport" content="width = 320" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=yes" />
+    <title>$format.html($title)</title>
+    $headElements
+    $jsElements
+    <link rel="stylesheet" type="text/css" media="only screen and (max-device-width: 480px)" href="style/small_device.css" />
+
+  </head>
+  <body role="document">
+  	<div id="row-top">
+    	<div class="iu-stripe">
+        	<img src="images/iu_crimson.gif" alt="$messages.indiana-university" />
+    	</div>
+   	</div>
+   	<div id="row-banner" role="banner">
+	    <div class="title-search-bar">
+            <div class="title">
+              <h1><a href="index.htm">$messages.dig-it</a></h1>
+            </div>
+          #if ($quickSearchForm)
+              <div class="search" role="search">
+                $quickSearchForm.startTag()
+                <legend class="offscreen">Search</legend>
+                <label for="quickSearchForm_query" class="offscreen">Search Image Collections Online:</label>$quickSearchForm.fields.query
+                <label for="quickSearchForm_searchScope" class="offscreen">In the following collection:</label>$quickSearchForm.fields.searchScope
+                $quickSearchForm.fields.search
+                $quickSearchForm.endTag()
+              </div>
+          #end
+    	</div>
+    </div>
+    <div id="row-content" role="main">
+	    <div class="page-content">
+    	  #if ($unit && $collection)
+        	<h2 class="collection-unit-title"><a href="splash.htm?scope=$unit.getId()">$unit.getShortName()</a> &gt; <a href="splash.htm?scope=$collection.getId()">$collection.getFullName()</a></h2> 
+	      #elseif ($unit)
+    	    <h2 class="collection-unit-title"><a href="splash.htm?scope=$unit.getId()">$unit.getFullName()</a></h2>
+	      #elseif ($collection)
+    	    <h2 class="collection-unit-title"><a href="splash.htm?scope=$collection.getId()">$collection.getFullName()</a></h2>
+    	  #else
+    	  	<h2 class="offscreen">All Image Collections</h2>
+      	  #end
+    
+	      #parse($path)
+    	</div>
+    </div>
+    <div id="footerIU">
+        <hr />
+        <div id="copyright">
+        	<ul id="footernav" role="navigation">
+    	    	<li class="first"><a href="index.htm">Home</a></li>
+	        	<li><a href="about.htm">About</a></li>
+        		<li class="last"><a href="help.htm">Help</a></li>
+        	</ul>
+        	<p>
+        	#if ($purl-link)
+        	<span>$purl-link<br /></span>
+        	#end
+        	<a href="http://www.dlib.indiana.edu/">$messages.iu-dlp</a><br />
+        	Comments: <a href="mailto:diglib@indiana.edu">diglib@indiana.edu</a></p>
+            <div id="blockiu">
+                <a href="http://www.indiana.edu/" title="Indiana University"><img
+                        src="$context/images/blockiu_white.gif" alt="Block IU" width="22"
+                        height="28" /> </a>
+            </div>
+            <div id="statement">
+                <a href="http://www.indiana.edu/comments/copyright.shtml"
+                    title="$messages.copyright">$messages.copyright</a> &#169;
+                <script type="text/javascript">
+                    var current_date = new Date();
+                    document.write(" " + current_date.getFullYear());
+                    //
+                </script>
+                <!-- UPDATE THE NOSCRIPT TAG WITH THE CURRENT YEAR -->
+                <noscript>
+                    <p class="inline">
+                        2011
+                    </p>
+                </noscript>
+                $messages.trustees
+                <a href="http://www.indiana.edu/" title="$message.indiana_university">$messages.indiana-university</a> &#124;
+                <a href="http://www.indiana.edu/comments/complaint.shtml"
+                    title="$messages.copyright-complaints">$messages.copyright-complaints</a> &#124; <a href="http://www.libraries.iub.edu/index.php?pageId=1137">$messages.privacy-policy</a>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

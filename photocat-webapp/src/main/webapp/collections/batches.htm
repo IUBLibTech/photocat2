@@ -1,0 +1,62 @@
+<h2>$messages.batch-header</h2>
+<div class="block-600px">
+	<p class="explanation">
+	  $messages.batch-description  
+	</p>
+	#if ($batches)
+	  <div class="page-block">
+	    $batches
+	  </div>
+	#else
+	  <p class="explanation">
+	    <em>$messages.no-batches</em>
+	  </p>
+	#end
+	
+	#if ($batchForm)
+	  <div class="page-block">
+	    #if ($batchForm.error)
+	      <p class="errorMessage">
+	        $batchForm.error
+	      </p>
+	    #end
+	    $batchForm.startTag()
+	    #if ($batchForm.fields.name.error)
+	      <p class="errorMessage">
+	        $batchForm.fields.name.error
+	      </p>
+	    #end
+	    $batchForm.fields.name
+	    $batchForm.fields.new
+	    $batchForm.endTag()
+	  </div>
+	#end
+</div>
+<div class="block-600px">
+    <h4>$messages.import-header</h4>
+    <p>$messages.import-description</p>
+	#if ($importBatchForm)
+	  <div class="page-block">
+	    #if ($importBatchForm.error)
+	      <p class="errorMessage">
+	        $importBatchForm.error
+	      </p>
+	    #end
+	    $importBatchForm.startTag()
+	    #if ($importBatchForm.fields.name.error)
+	      <p class="errorMessage">
+	        $importBatchForm.fields.name.error
+	      </p>
+	    #end
+	    #if ($importBatchForm.fields.upload.error)
+	      <p class="errorMessage">
+	        $importBatchForm.fields.upload.error
+	      </p>
+	    #end
+	    $importBatchForm.fields.name
+	    $importBatchForm.fields.upload
+	    $importBatchForm.fields.import
+	    $importBatchForm.endTag()
+	  </div>
+	#end
+</div>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="info:photocat/metadata" xmlns:m="info:photocat/metadata" targetNamespace="info:photocat/metadata">
+    <xs:element name="itemMetadata">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="id" />
+                <xs:element ref="collectionId" />
+                <xs:element ref="field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="field-type">
+            <xs:selector xpath="m:field" />
+            <xs:field xpath="@fieldType" />
+        </xs:unique>
+    </xs:element>
+    
+    <xs:element name="id" type="xs:string" />
+    <xs:element name="collectionId" type="xs:string" />
+    
+    <xs:element name="field" type="fieldType" />
+
+    <xs:complexType name="fieldType">
+        <xs:annotation>
+            <xs:documentation>
+              Each one of these Field elements represents the entirey of the data
+              collected for the field given by the "fieldType" attribute.  The 
+              meaning, use or purpose of this field is defined in the field definition
+              XML file referenced in the /itemMetadata/fieldDefinition xml file.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element ref="attribute" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="values" minOccurs="0" />
+        </xs:sequence>
+        <xs:attribute name="fieldType" type="xs:string" use="required" />
+    </xs:complexType>
+    
+    <xs:element name="attribute">
+        <xs:annotation>
+            <xs:documentation>
+                An "attribute" of the field is a value entered that applies
+                to every value entered in the field. 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="name" use="required" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="values">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="value" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="value">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="part" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="part">
+        <xs:complexType>
+            <xs:simpleContent>
+                <xs:extension base="xs:string">
+                    <xs:attribute name="property" type="xs:string" />
+                </xs:extension>
+            </xs:simpleContent>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

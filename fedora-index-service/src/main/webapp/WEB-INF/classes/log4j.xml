@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/docs/api/org/apache/log4j/xml/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+  <appender name="RollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+    <param name="File" value="logs/fedora-index-service.log"/>
+    <param name="DatePattern" value="'.'yyyy-MM" />
+    <param name="Append" value="true"/>
+    <layout class="org.apache.log4j.PatternLayout">
+      <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5p (%13F:%L) %3x - %m%n"/>
+    </layout>
+  </appender>
+
+  <category name="edu.indiana.dlib.fedoraindexer">
+    <priority value="INFO"></priority>
+  </category>
+
+  <root>
+    <priority value="ERROR"></priority>
+    <appender-ref ref="RollingFile"/>
+  </root>
+	
+</log4j:configuration>

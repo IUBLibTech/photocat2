@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<parserConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="jqaparser.xsd">
+
+  <databaseConfigs>
+    <databaseConfig type="SRU">
+      <operatorMappings>
+        <operator type="and" forceParen="true">AND</operator>
+        <operator type="or" forceParen="true">OR</operator>
+        <operator type="not" forceParen="true">NOT</operator>
+      </operatorMappings>
+      <stopwords>
+        <stopword>&amp;</stopword>
+        <stopword>*</stopword>
+        <stopword>about</stopword>
+        <stopword>after</stopword>
+        <stopword>all</stopword>
+        <stopword>also</stopword>
+        <stopword>an</stopword>
+        <stopword>and</stopword>
+        <stopword>any</stopword>
+        <stopword>are</stopword>
+        <stopword>as</stopword>
+        <stopword>at</stopword>
+        <stopword>be</stopword>
+        <stopword>because</stopword>
+        <stopword>been</stopword>
+        <stopword>but</stopword>
+        <stopword>by</stopword>
+        <stopword>can</stopword>
+        <stopword>co</stopword>
+        <stopword>corp</stopword>
+        <stopword>could</stopword>
+        <stopword>for</stopword>
+        <stopword>from</stopword>
+        <stopword>had</stopword>
+        <stopword>has</stopword>
+        <stopword>have</stopword>
+        <stopword>he</stopword>
+        <stopword>her</stopword>
+        <stopword>his</stopword>
+        <stopword>if</stopword>
+        <stopword>in</stopword>
+        <stopword>inc</stopword>
+        <stopword>into</stopword>
+        <stopword>is</stopword>
+        <stopword>it</stopword>
+        <stopword>its</stopword>
+        <stopword>last</stopword>
+        <stopword>more</stopword>
+        <stopword>most</stopword>
+        <stopword>mr</stopword>
+        <stopword>mrs</stopword>
+        <stopword>ms</stopword>
+        <stopword>mz</stopword>
+        <stopword>no</stopword>
+        <stopword>not</stopword>
+        <stopword>only</stopword>
+        <stopword>of</stopword>
+        <stopword>on</stopword>
+        <stopword>one</stopword>
+        <stopword>or</stopword>
+        <stopword>other</stopword>
+        <stopword>out</stopword>
+        <stopword>over</stopword>
+        <stopword>s</stopword>
+        <stopword>so</stopword>
+        <stopword>says</stopword>
+        <stopword>she</stopword>
+        <stopword>some</stopword>
+        <stopword>such</stopword>
+        <stopword>than</stopword>
+        <stopword>that</stopword>
+        <stopword>the</stopword>
+        <stopword>their</stopword>
+        <stopword>there</stopword>
+        <stopword>they</stopword>
+        <stopword>this</stopword>
+        <stopword>to</stopword>
+        <stopword>was</stopword>
+        <stopword>we</stopword>
+        <stopword>were</stopword>
+        <stopword>when</stopword>
+        <stopword>which</stopword>
+        <stopword>who</stopword>
+        <stopword>will</stopword>
+        <stopword>with</stopword>
+        <stopword>would</stopword>
+        <stopword>up</stopword>
+      </stopwords>
+      <escapeMappings>
+        <escapeChars useBefore="\">
+          <escapeChar use="''">'</escapeChar>
+          <escapeChar>-</escapeChar>
+          <escapeChar>,</escapeChar>
+          <escapeChar use="o">ö</escapeChar>
+          <escapeChar>=</escapeChar>
+        </escapeChars>
+        <escapeWords useBefore="{" useAfter="}">
+          <escapeWord>ABOUT</escapeWord>
+          <escapeWord>ACCUM</escapeWord>
+          <escapeWord>AND</escapeWord>
+          <escapeWord>BT</escapeWord>
+          <escapeWord>BTG</escapeWord>
+          <escapeWord>BTI</escapeWord>
+          <escapeWord>BTP</escapeWord>
+          <escapeWord>FUZZY</escapeWord>
+          <escapeWord>HASPATH</escapeWord>
+          <escapeWord>INPATH</escapeWord>
+          <escapeWord>MINUS</escapeWord>
+          <escapeWord>NEAR</escapeWord>
+          <escapeWord>NOT</escapeWord>
+          <escapeWord>NT</escapeWord>
+          <escapeWord>NTG</escapeWord>
+          <escapeWord>NTI</escapeWord>
+          <escapeWord>NTP</escapeWord>
+          <escapeWord>OR</escapeWord>
+          <escapeWord>PT</escapeWord>
+          <escapeWord>RT</escapeWord>
+          <escapeWord>SQE</escapeWord>
+          <escapeWord>SYN</escapeWord>
+          <escapeWord>TR</escapeWord>
+          <escapeWord>TRSYN</escapeWord>
+          <escapeWord>TT</escapeWord>
+          <escapeWord>WITHIN</escapeWord>
+        </escapeWords>
+      </escapeMappings>
+      <wildcardMappings>
+        <singleWildcard>?</singleWildcard>
+        <multiWildcard>*</multiWildcard>
+      </wildcardMappings>
+    </databaseConfig>
+  </databaseConfigs>
+
+  <queryMappings>
+    <queryMapping name="searchCQL"
+      defaultHandler="edu.indiana.dlib.jqa.parser.handler.DefaultHandler" databaseType="SRU"
+      defaultField="serverChoice">
+      <query>#{CRITERIA}</query>
+      <criteriaMapping field="serverChoice">
+        <criteria type="regular">
+          <text>cql.serverChoice="#{TEXT}"</text>
+        </criteria>
+      </criteriaMapping>
+      <criteriaMapping field="collectionId">
+        <criteria type="regular">
+          <text>collectionId="#{TEXT}"</text>
+        </criteria>
+      </criteriaMapping>
+      <criteriaMapping field="dc.identifier">
+        <criteria type="regular">
+          <text>dc.identifier="#{TEXT}"</text>
+        </criteria>
+      </criteriaMapping>
+    </queryMapping>
+
+  </queryMappings>
+</parserConfig>

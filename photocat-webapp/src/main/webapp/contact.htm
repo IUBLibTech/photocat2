@@ -1,0 +1,13 @@
+#foreach ($aspect in $item.getAspects())
+  #if ($aspect.getThumbnailView())
+    <div class="preview">
+      <img src="$aspect.getThumbnailView().getURL()" alt="$messages.preview-image" />
+    </div>
+  #end
+#end
+#if ($contactForm.wasSubmitted())
+  <p>$messages.contact-submitted</p>
+#else
+  <p>$messages.contact-advice</p>
+  $contactForm
+#end

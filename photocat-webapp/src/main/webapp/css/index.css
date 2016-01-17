@@ -1,0 +1,69 @@
+.featured-collections {
+  width:800px;
+  border: 6px solid black;
+  border-radius:2em;
+  -moz-border-radius:2em;
+  padding: 1em;
+  margin: 1.0em;
+  background:#a0a0a0;
+}
+
+.featured-collection {
+  height:250px;
+  width:650px;
+  padding:0px;
+  margin-left:2em;
+  margin-right:2em;
+  background:#ffffff;
+  border: 1px solid gray;
+}
+
+.featured-collections ul {
+  /*display:inline-block; */
+}
+
+.featured-collections-internal {
+}
+
+.featured-collections-internal ul {
+	list-style-type: none;
+}
+
+.featured-collection-content {
+  height:250px;
+  position:relative;
+  text-align:left;
+  top:-25px;
+  padding: 5px;
+}
+
+img.imagefloat {
+	float: left;
+	margin-right: 8px;
+}
+
+p.description {
+  padding:8px;
+}
+
+.link-bar {
+    position:relative;
+    height:15px;
+    padding:5px;
+    top:225px;
+    background: #333333;
+/*    background:url('images/80_percent_black.png'); */
+    z-index:1;
+}
+
+.link-bar a {
+  color: #ffffff;
+}
+
+.prev {
+  vertical-align:middle;
+}
+
+.next {
+  vertical-align:middle;
+}
