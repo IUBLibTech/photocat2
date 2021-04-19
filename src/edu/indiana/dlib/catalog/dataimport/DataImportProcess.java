@@ -73,26 +73,17 @@ public class DataImportProcess {
         return fileToImport;
     }
     
+    //create a new Records object by using parseFactory 
+    //based on the type of the file
     public void setFile(File file, String originalName) throws Exception {
-        fileToImport = file;
-        originalFilename = originalName;
-        if (originalName.endsWith(".xml")) {
-            try {
-                parseFilemakerFile();
-            } catch (Exception ex) {
-                // not a filemaker file
-                records = null;
-                throw ex;
-            }
-        } else if (originalName.endsWith("xls") || originalName.endsWith("xlsx")) {
-            try {
-                parseSpreadsheetFile();
-            } catch (Exception ex) {
-                // not a parsable spreadsheet
-                records = null;
-                throw ex;
-            }
-        }
+        
+        	ParseFactory factory = new ParseFactory();
+        	records = factory.getRecords(file,originalName);
+        	
+        	if(records == null) {
+        		throw new Exception("Problem in parsing");
+        	}
+     
     }
     
     public void setRecordImportOperation(RecordImportOperation op) {
@@ -101,17 +92,6 @@ public class DataImportProcess {
     
     public RecordImportOperation getRecordImportOperation() {
         return importOperation;
-    }
-
-    private void parseFilemakerFile() throws Exception {
-        // try it as a filemaker database
-        FilemakerXML filemaker = new FilemakerXML(fileToImport);
-        records = filemaker;
-    }
-    
-    private void parseSpreadsheetFile() throws InvalidFormatException, IOException {
-        SpreadsheetRecords spreadsheet = new SpreadsheetRecords(fileToImport);
-        records = spreadsheet;
     }
     
     public Records getRecords() {
@@ -140,3 +120,5 @@ public class DataImportProcess {
        outputChannel.close();
     }
 }
+
+ 
