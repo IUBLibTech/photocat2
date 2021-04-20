@@ -35,6 +35,9 @@ import org.apache.click.extras.security.AccessController;
 
 import edu.indiana.dlib.catalog.accesscontrol.AuthenticationException;
 import edu.indiana.dlib.catalog.accesscontrol.UserInfo;
+import edu.indiana.dlib.catalog.pages.decorators.BreadcrumbDecorator;
+import edu.indiana.dlib.catalog.pages.decorators.RootMenuDecorator;
+import edu.indiana.dlib.catalog.pages.decorators.TitleDecorator;
 
 /**
  * A template that contains the header and footer and all
@@ -91,12 +94,14 @@ public abstract class BorderPage extends ApplicationPage {
 	    return true;
 	}
 	
-	public void onRender() {
-	    super.onRender();
-	    rootMenu = getMenu();
-	    breadcrumbs = getBreadcrumbs();
-	    title = getTitle();
-	}
+    public void onRender() {
+        new RootMenuDecorator(getMenu(), 
+            new BreadcrumbDecorator(getBreadcrumbs(), 
+                new TitleDecorator(getTitle(), this)
+            )
+        ).onRender();
+        super.onRender();
+    }
 	
 	protected Menu getMenu() {
 	    return null;
